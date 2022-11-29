@@ -1,0 +1,64 @@
+<html>
+    <body>
+        <img id="currentPic" />
+        <p></p>
+        <button type="button" onclick="nextPicture();">
+            Next
+        </button>
+
+        <script>
+            // store the image filenames for the slideshow
+            let imageFilenames = new Array(3);
+            // store the image alt texts
+            let imageTexts = new Array(3);
+
+            // store the index of the image currently being shown
+            let currentImageIndex = 0;
+
+            loadImageFilenames();
+            showCurrentImage();
+
+            // go to the next image in the slideshow
+            function nextPicture() {
+                // go to the next index in the array
+                currentImageIndex = currentImageIndex + 1;
+
+                // go back to the beginning index if at the end
+                if (currentImageIndex == imageFilenames.length) {
+                    currentImageIndex = 0;
+                }
+               
+                // update the slideshow image
+                showCurrentImage();
+            }
+
+
+            // shows the image located at currentImageIndex in the
+            // imageFilenames array
+            function showCurrentImage() {
+                // get the <img> element
+                let imageTag = document.getElementById("currentPic");
+
+                // show the current image
+                imageTag.src = imageFilenames[currentImageIndex];
+                imageTag.alt = imageTexts[currentImageIndex];
+                imageTag.width = 500;
+                imageTag.height = 400;
+            }
+
+
+            // load the filenames into the array
+            function loadImageFilenames() {
+                imageFilenames[0] = "japan.jpg";
+                imageTexts[0] = "Coolest photo in japan";
+
+                imageFilenames[1] = "japan2.jpg";
+                imageTexts[1] = "Cool photo in japan";
+
+                imageFilenames[2] = "japan3.jpg";
+                imageTexts[2] = "Mid photo in japan";
+            }
+
+        </script>
+    </body>
+</html>

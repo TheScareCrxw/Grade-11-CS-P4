@@ -1,0 +1,119 @@
+<html>
+    <body>
+        <p id="charactersList"></p>
+
+        <button type="button" id="btnBack" onclick="showPreviousCharacter();">Back</button>
+        <button type="button" id="btnForward" onclick="showNextCharacter();">Forward</button>
+        <button type="button" id="btnSelect" onclick="selectCharacter();">Select</button>
+        <button type="button" id="btnSelectRandom" onclick="selectRandomCharacter();">Select Random Character</button>
+
+        <p id="selectedCharacter"></p>
+        <p id="currentCharacter"></p>
+
+        <script>
+            // controls array sizes
+            const NUMBER_OF_HEROES = 4;
+
+            // constants to store HTML elements
+            const P_CHARACTERS_LIST = document.getElementById("charactersList");
+            const P_SELECTED_CHARACTER = document.getElementById("selectedCharacter");
+            const P_CURRENT_CHARACTER = document.getElementById("currentCharacter");
+
+            // stores all the hero names and each hero's info in a parallel array
+            let names = new Array(NUMBER_OF_HEROES);
+            let specialPowers = new Array(NUMBER_OF_HEROES);
+
+            // used to traverse through the character selection
+            let currentIndex = 0;
+            let selectedIndex = 0;
+
+
+
+            // begin the program
+            start();
+
+            // START - program function begins here
+            function start() {
+                createCharacters();
+                printCharacters();
+                printCurrentCharacter();
+            }
+
+            // print the current character in the array traversal
+            function printCurrentCharacter() {
+                P_CURRENT_CHARACTER.innerText = "Current Character: " +
+                    names[currentIndex] + " - " + specialPowers[currentIndex];
+            }
+
+            // print the name of the selected character
+            function printSelectedCharacter() {
+                P_SELECTED_CHARACTER.innerText = "Selected Character: " + names[selectedIndex];
+            }
+
+            // selects the current character in the traversal
+            function selectCharacter() {
+                selectedIndex = currentIndex;
+                printSelectedCharacter();
+            }
+
+            function selectRandomCharacter() {
+                
+                currentIndex = Math.floor(Math.random()*NUMBER_OF_HEROES)
+                selectedIndex = currentIndex;
+                printCurrentCharacter();
+                selectCharacter();
+            }
+
+
+            // goes to the previous character element in the array
+            function showPreviousCharacter() {
+                // only go the previous character when NOT at the first character
+                if (currentIndex > 0) {
+                    currentIndex = currentIndex - 1;
+                    printCurrentCharacter();
+                }
+            }
+
+
+            // goes to the next character element
+            function showNextCharacter() {
+                // only go to the next character if we are not at the array's end
+                if (currentIndex < names.length - 1) {
+                    // increase the index by 1 to go to the next element
+                    currentIndex = currentIndex + 1;
+
+                    printCurrentCharacter();
+                }
+            }
+
+
+
+            // assign array values
+            function createCharacters() {
+                names[0] = "Black Panther";
+                specialPowers[0] = "Super Strength";
+
+                names[1] = "Black Widow";
+                specialPowers[1] = "Super Agility";
+
+                names[2] = "Captain Marvel";
+                specialPowers[2] = "Intergalactic Strength";
+
+                names[3] = "Shang-Chi";
+                specialPowers[3] = "Magic";
+            }
+
+            // print characters into a single paragraph
+            function printCharacters() {
+                P_CHARACTERS_LIST.innerText =
+                    "1 " + names[0] + "\n" +
+                    "2 " + names[1] + "\n" +
+                    "3 " + names[2] + "\n" +
+                    "4 " + names[3];
+            }
+        </script>
+    </body>
+</html>
+
+
+

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login </title>
+        <link rel="stylesheet" type="text/css" href="style.css"></link>
+    </head>
+    
+
+    <body style="background: rgb(255, 163, 76);">
+        <div class="login">
+            <h1>Login to Massage Mayhem</h1>
+            <label for="usernameInput">
+                Username
+            </label>
+
+            <input type="text" id="usernameInput"/>
+            
+            <br>
+
+            <label for="passwordInput">
+                Password
+            </label>
+
+            <input type="text" id="passwordInput"/>
+        </div>
+
+        <br>
+        <centre>
+            <div class="login">
+                
+                <p id="respond"></p>
+
+                <button type="button" id="login" onclick="loginCheck();">
+                    Login
+                </button>
+
+            </div>
+        </centre>
+
+        <script>
+            // Variables for my password and username
+            let username = "ma";
+            let password = "li";
+
+            // Function to check if the password the user inputs matches with the password needed 
+            // checks if the username is the same username as needed 
+            // if both username and password match redirects to help page, else will display error message
+            function loginCheck(){
+                let p1 = document.getElementById("usernameInput");
+                let p2 = document.getElementById('passwordInput');
+                let name = p1.value;
+                let pass = p2.value;
+                if (username == name && password == pass){
+                    p1 = document.getElementById("usernameInput");
+                    p2 = document.getElementById('passwordInput');
+                    location.href = "help.html";
+                } 
+                else {
+
+                    document.getElementById('respond').innerText = "Try Again. Username or password is incorrect.";
+                    p1.value = "";
+                    p2.value = "";
+                }
+            }
+
+        </script>
+
+    </body>
+</html>

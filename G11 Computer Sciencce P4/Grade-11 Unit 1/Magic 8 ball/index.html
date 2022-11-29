@@ -1,0 +1,64 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <img src="https://profoundjs.com/ide/bernice/magic-8-ball-app/public/8-Ball.png" alt="The Magic 8 ball"/>
+
+        <input type="text"/>
+
+        <button type="button" onclick="respond();">
+            Ask the Magic 8 Ball :D
+        </button>
+
+        <p id="response"></p>
+    </body>
+
+    <script>
+        // a constant for the number of possible 
+        // responses given by the Magic 8 ball
+        const NUMBER_OF_RESPONSES = 8;
+        
+        function respond(){
+            let responceNumber = Math.floor(Math.random() * NUMBER_OF_RESPONSES);
+
+            let aResponse;
+
+            if (responseNumber == 0) {
+                aResponse = "No way Jose!";
+            }
+
+            else if (responceNumber ==1) {
+                aResponse ="Yes!";
+            }
+
+            else if (responceNumber ==2) {
+                aResponse ="No!";
+            }
+
+            else if (responceNumber ==3) {
+                aResponse ="Definitely maybe!";
+            }
+
+            else if (responceNumber ==4) {
+                aResponse ="The future is uncertian!";
+            }
+
+            else if (responceNumber ==5) {
+                aResponse ="Why would you ask that?!?";
+            }
+
+            else if (responceNumber ==6) {
+                aResponse ="Ask again later!";
+            }
+
+            else {
+                aResponse = "For sure!";
+            }
+
+            document.getElementById('response').innerText = aResponse;
+        }
+        
+    </script>
+</html>

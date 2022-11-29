@@ -1,0 +1,42 @@
+<html>
+    <body>
+        <input type="text" id="num1" />
+
+        +
+
+        <input type="text" id="num2" />
+
+        <button type="button" onclick="calculateSum();">
+            =
+        </button>
+
+        <p id="answer"></p>
+
+        <script>
+            // adds up the numbers the user inputs
+            function calculateSum(){
+
+                let num1textbox = document.getElementById('num1').value;
+                let num2textbox = document.getElementById('num2').value;
+                
+                // make sure that the user typed in numbers before adding them up
+                if (isNaN(num1textbox) == false && isNaN(num2textbox) == false){
+                    
+                // get what the user typed in 
+                let number1 = Number(document.getElementById('num1').value);
+                let number2 = Number(document.getElementById('num2').value);
+
+                // calculate the sum of both numbers
+                let sum = number1 + number2;
+
+                // print out the answer
+                document.getElementById('answer').innerText = sum;
+                }
+            else {
+                document.getElementById('answer').innerText = "";
+                alert("Numbers Only.");
+            }
+            }
+        </script>
+    </body>
+</html>

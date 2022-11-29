@@ -1,0 +1,20 @@
+./<html>
+    <body>
+        <button type = "button onclick="timesLike();">
+        Likes
+        </button>
+    </body>
+
+
+    <script>
+        setInterval(moreLikes, 1000);
+
+        let likes = 0;
+
+        function moreLikes(){
+            likes = likes + 1;
+
+            document.getElementById("likeButton").innerText = likes;                
+        }
+    </script>
+</html>

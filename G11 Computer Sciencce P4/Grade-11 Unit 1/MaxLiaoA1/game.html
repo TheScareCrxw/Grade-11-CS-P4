@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Massage Mayhem
+        </title>
+        <link rel="stylesheet" type="text/css" href="style.css"></link>
+    </head>
+
+    <body style="background-color: rgb(46, 46, 46)" onclick="resetCorporatePowerStruggle()">
+        <h1 id="text">Welcome to Massage Mayhem</h1>
+        <div class="flexbox-container">
+            <div class="flexbox-item flexbox-item-1" >
+
+                <h1> Upgrades</h1>
+                <div id="upgradetext">
+                    <h2 id="numberOfMuscularFingers"></h2>
+                    <h2 id="numberOfAttractiveAssistant"></h2>
+                    <h2 id="ambidextrousDisplay"></h2>
+                    <h2 id="numberOfFranchise"></h2>
+                    <h2 id="numberOfRelocations"></h2>
+                    <h2 id="numberOfSecurity"></h2> 
+
+                </div>       
+
+                <h1>Notifications</h1>
+                <div id="notificationstext">
+                    <h2 id="crimeAlert"></h2>
+                    <h2 id="wrongBack"></h2>
+                    <h2 id="brokenBack"></h2>
+                    <h2 id="initialPublicOfferingAlert"></h2>
+                </div>
+            </div>
+
+
+
+ 
+
+
+            <div class="flexbox-item flexbox-item-2">
+                <h2 style="text-align: center;"id="instructions"></h2> 
+
+                <div id="backImage">
+                    <img class="bodypart" src="upperBack.png" width="500" height="200" onclick="upperBack();"/>
+                </div>
+
+                <div id="backImage">
+                    <img class="bodypart" src="middleBack.png" width="500" height="200" onclick="middleBack();"/>
+                </div>
+
+                <div id="backImage">
+                    <img class="bodypart" src="lowerBack.png" width="500" height="200" onclick="lowerBack();"/>
+                </div>
+                <h1 style="text-align: center;" id="count"></h1>
+  
+                <button type="button" style="width: 93.5%;" onclick="backToHelp();">
+                    Back To Help Page 
+                </button>
+                <h4 id="blackText">This Will Reset Your Progress!!</h4>
+
+            </div>
+
+
+            <div class="flexbox-item flexbox-item-3" >
+                <div class="button" style="text-align-last: left;">
+                    <button  type="button" id="muscularFingers" onclick="buyMuscularFingers();">
+                        Buy Musclar Finger
+                    </button>
+
+                    <button  type="button" id="attrativeAssistants" onclick="buyAttractiveAssistant();">
+                        Buy Attractive Assistant
+                    </button>
+
+                    <button type="button" id="ambidextrous" onclick="buyAmbidextrous();">
+                        Buy Ambidextrous
+                    </button>
+
+                    <button type="button" id="franchise" onclick="buyFranchise();">
+                        Buy Franchise
+                    </button>
+
+                    <button type="button" id="relocate" onclick="buyRelocate();">
+                        Relocate
+                    </button>                        
+                    
+                    <button type="button" style="margin-left: 30px;"id="security" onclick="buySecurity();">
+                        Buy Security
+                    </button>
+
+                    <button type="button" id="initialPublicOfferingYes" onclick="acceptInitialPublicOffering();" hidden>
+                        Accept Initial Public Offering
+                    </button>
+
+                    <button type="button" style="margin-left: 30px;" id="initialPublicOfferingNo" onclick="declineInitialPublicOffering()" hidden>
+                        Decline Initial Public Offering
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script src ="scripts/main.js"></script>
+    </body>
+</html>

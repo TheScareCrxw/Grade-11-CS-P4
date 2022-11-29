@@ -1,0 +1,46 @@
+<html>
+    <head>
+        
+    </head>
+
+    <body>
+        <button type="button" onclick="randomTo6();">
+        1 - 6
+        </button>
+        <button type="button" onclick="randomTo100();">
+        5 - 100
+        </button>
+        <button type="button" onclick="randomMinus50To50();">
+        -50 to 50
+        </button>
+
+        <p id="output"></p>
+
+        <script>
+            // store the paragraph
+            let p = document.getElementById('output');
+            
+            //Raondom number between 1 and 6
+            function randomTo6(){
+                //// To calculate the range, use the formula
+                //// MAX - MIN + 1
+                //// 6 - 1 + 1 = 6
+
+                let rando = Math.floor(Math.random() * 6 ) + 1;
+                p.innerText = rando;
+            }
+
+            function randomTo100(){
+                let rando = Math.floor(Math.random() *96 ) + 5;
+                p.innerText = rando;
+            }
+
+            function randomMinus50To50() {
+                let rando = Math.floor(Math.random() * 101) - 50;
+                p.innerText = rando;
+            }
+
+        </script>
+    </body>
+
+</html>

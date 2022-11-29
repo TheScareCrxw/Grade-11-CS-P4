@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <p id="p2info"></p>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <p id="p1info"></p>
+        <button type="button" id="btnAttack" onclick=""> Attack!</button>
+
+        <script>
+            const BTN_ATTACK = document.getElementById("btnAttack");
+    
+            // player array index identifiers
+            const HUMAN = 0;
+            const COMPUTER = 1;
+    
+            // player information
+            const NUM_PLAYERS = 2;
+            let playerHealth = new Array(NUM_PLAYERS);
+            let names = new Array(NUM_PLAYERS);
+            let paragraphs = new Array(NUM_PLAYERS);
+    
+            // stores the computer AI timer so it can be stopped
+            let aiTimer;
+    
+            start();
+    
+            function start() {
+                setupGame();
+                showPlayerInfo(COMPUTER);
+                showPlayerInfo(HUMAN);
+    
+                aiTimer = setInterval(ai, 2000);
+    
+            }
+    
+            function setupGame() {
+                playerHealth[HUMAN] = 40;
+                names[HUMAN] = "Canada";
+                paragraphs[HUMAN] = document.getElementById("p1Info");
+    
+                playerHealth[COMPUTER] = 40;
+                names[COMPUTER] = "Belgium";
+                paragraphs[COMPUTER] = document.getElementById("p2Info");
+            }
+    
+            function checkGameOver(health) {
+    
+                if (health <= 0) {
+                    alert("Game over!");
+                    BTN_ATTACK.disabled = true;
+    
+                    // stop the computer from taking over the world
+                    clearInterval(aiTimer);
+                }
+    
+            }
+    
+            // reduce the health of the player at playerIndex by 10
+            function attackPlayer(playerIndex) {
+                // take away 10 health
+                playerHealth[playerIndex] = playerHealth[playerIndex] - 10;
+    
+                checkGameOver( playerHealth[playerIndex] );
+    
+                showPlayerInfo(playerIndex);
+            }
+    
+            // shows the player at playerInfo in their UI paragraph
+            function showPlayerInfo(playerIndex) {
+                paragraphs[playerIndex].innerText =
+                    names[playerIndex] + " " + playerHealth[playerIndex];
+            }
+    
+            // get the computer AI to attack the human player
+            function ai() {
+                attackPlayer(HUMAN);
+            }
+    
+    
+    
+        </script>
+    </body>
+</html>
