@@ -20,9 +20,9 @@ body {
   }
   
 .flexbox-item {
-    width: 700px;
+    width: 625px;
     box-sizing: border-box;
-    height: 645px;
+    height: 625px;
     margin: 25px;
     background-color: #EE4E34;
     border-radius: 10px;
@@ -45,9 +45,8 @@ body {
 
 .flexbox-item-3 {
     min-height: 100px;
-    width: 100%;
-    height: 650px;
-    margin: 10px;
+    width: 95.5%;
+    height: 615px;
 }
 
 button {
