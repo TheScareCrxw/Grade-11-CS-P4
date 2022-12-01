@@ -8,13 +8,17 @@
 
     <body style="background-color: #101820FF;">
 
-        <div id="Page1">
+        <div style="color: white;">
+
             <div class="flexbox-container">
+
                 <div class="flexbox-item flexbox-item-1" >
+
                     <h2 id="characterList"></h2>
                     <img id="characterImg">
     
                     <div id="bottombuttonsforindex">
+
                         <button type="button" onclick="nextCharacter();">Next Character</button>
                         <button type="button" onclick="previousCharacter();">Previous Character</button>
                         <br />
@@ -26,7 +30,9 @@
                 </div>
     
                 <div class="flexbox-item flexbox-item-2">
+
                     <h2>Stats</h2> 
+
                     <div style="margin-left: 50px;">
                         <h2 style="text-align: left;" id="statsDisplay"></h2>
                     </div>
@@ -35,17 +41,33 @@
         </div>
 
 
-
+<!--
         <div id="Page2" hidden="true">
             <div class="flexbox-container">
-                <div class="flexbox-item flexbox-item-3" >
-                    <img id="selectedCharacterImage" width="350" height="350">
-                    <h2 id="selectedCharacterList"></h2>
 
+                <div class="flexbox-item flexbox-item-3" >
+                    <div class="flexbox-container">
+
+                        <div class="flexbox-item flexbox-item-4">
+                            <h4>Human</h4>
+
+                            <img id="selectedCharacterImageHuman" width="250" height="250">
+                            <h4 id="selectedCharacterList"></h4>
+                        </div>
     
+                        <div class="flexbox-item flexbox-item-5">
+                            <h4>Computer</h4>
+
+                            <img id="selectedCharacterImageComputer" width="250" height="250">
+                            <h4 id="computerCharacterList"></h4>
+                        </div>
+    
+
+                    </div>
                 </div>
             </div>
         </div>
+//-->
 
 
         <script src="scripts/main.js"></script>

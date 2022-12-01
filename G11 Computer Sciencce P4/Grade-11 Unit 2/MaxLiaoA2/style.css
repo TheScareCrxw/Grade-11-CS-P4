@@ -24,7 +24,7 @@ body {
     box-sizing: border-box;
     height: 625px;
     margin: 25px;
-    background-color: #EE4E34;
+    background-color: #800020;
     border-radius: 10px;
     border: 4px solid rgb(254, 202, 143);
     text-align: center;
@@ -47,15 +47,43 @@ body {
     min-height: 100px;
     width: 95.5%;
     height: 615px;
+    align-content: left;
+    padding: 20px;
+    text-align: left;
+
+}
+.flexbox-item-4 {
+    align-content: left;
+    padding: 10px;
+    margin: 10px;
+    text-align: left;
+    height: 450px;
+    width: 300px;
+    background-color: #EE4E34;
+    line-height: 0.8;
+
 }
 
+.flexbox-item-5 {
+    align-content: left;
+    padding: 10px;
+    margin: 10px;
+    text-align: left;
+    height: 450px;
+    width: 300px;
+    background-color: #EE4E34;
+    line-height: 0.8;
+
+
+}
 button {
     padding: 10px 20px;
     width: 190px;
     background-color: #FC766AFF;
     font-size: 15px;
+    margin-bottom: 20px;
     border-radius: 10px;
-    border: 4px solid rgb(46, 46, 46);
+    border: 4px solid rgb(254, 202, 143);
     font-weight: bold;
   }
 

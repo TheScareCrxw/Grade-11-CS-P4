@@ -1,8 +1,5 @@
 // Max Liao ORIGINAL
 
-
-
-
 // Constants for indexs and array lists 
 const HUMAN = 0;
 const COMPUTER = 1;
@@ -13,8 +10,10 @@ const NUMBER_OF_CHARACTERS = 2;
 const P_CHARACTER_LIST = document.getElementById("characterList");
 const P_CHARACTER_STATS = document.getElementById("statsDisplay");
 const IMG_TAG = document.getElementById("characterImg");
-const SELECTED_IMG = document.getElementById("selectedCharacterImage");
+const SELECTED_IMG_HUMAN = document.getElementById("selectedCharacterImageHuman");
+const SELECTED_IMG_COMPUTER = document.getElementById("selectedCharacterImageComputer");
 const SELECTED_CHARACTER_LIST = document.getElementById("selectedCharacterList");
+const COMPUTER_CHARACTER_LIST = document.getElementById("computerCharacterList");
 
 const WORDLIST = ["He", ""]
 
@@ -22,58 +21,52 @@ const WORDLIST = ["He", ""]
 
 let characters = new Array(NUMBER_OF_CHARACTERS);
 let characterImgFileName = new Array(NUMBER_OF_CHARACTERS);
-let characterImgAlt = new Array(NUMBER_OF_CHARACTERS);
 let maximunHealth = new Array(NUMBER_OF_CHARACTERS);
 let normalAttackPower = new Array(NUMBER_OF_CHARACTERS);
 let specialAttackPower = new Array(NUMBER_OF_CHARACTERS);
-
-
 
 let currentIndex = 0;
 
 let characterNumber = 1;
 
-let selectedCharacter = 0;
 
 start();
 
 function start() {
     createCharacters();
-    printCharacters();
+    displayCharacter(currentIndex);
     showCurrentImage();
-    selectedElements();
+
+    /*
+    selectedElementsHuman(currentIndex);
+    selectedElementsComputer();
+    */
 }
 
 function createCharacters() {
-
     characters[HUMAN] = "Zer";
     characterImgFileName[HUMAN] = "Character2.gif";
-    characterImgAlt[HUMAN] = "Zer Character";
     maximunHealth[HUMAN] = 260 ;
     normalAttackPower[HUMAN] = 6;
     specialAttackPower[HUMAN] = 63;
     
-    
     characters[COMPUTER] = "Loz";
     characterImgFileName[COMPUTER] = "Character1.gif";
-    characterImgAlt[COMPUTER] = "Loz Character";
     maximunHealth[COMPUTER] = 235 ;
     normalAttackPower[COMPUTER] = 8;
     specialAttackPower[COMPUTER] = 70;
 }
 
 function showCurrentImage() {
-
     IMG_TAG.src = characterImgFileName[currentIndex];
     IMG_TAG.width = 350;
     IMG_TAG.height = 350;
 }
 
-function printCharacters() {
-    P_CHARACTER_LIST.innerText = characters[currentIndex];
+function displayCharacter(index) {
+    P_CHARACTER_LIST.innerText = characters[index];
     showCurrentImage();
-    P_CHARACTER_STATS.innerText = "Health: " + maximunHealth[currentIndex] + "\n\n" + "Normal Attack Power: " + normalAttackPower[currentIndex] + "\n\n" + "Special Attack Power: " + specialAttackPower[currentIndex];
-    
+    P_CHARACTER_STATS.innerText = "Health: " + maximunHealth[index] + "\n\n" + "Normal Attack Power: " + normalAttackPower[index] + "\n\n" + "Special Attack Power: " + specialAttackPower[index];
 }
 
 function nextCharacter() {
@@ -81,9 +74,7 @@ function nextCharacter() {
     if (currentIndex == characters.length) {
         currentIndex = 0;
     }
-    printCharacters();
-    selectedElements();
-
+    displayCharacter(currentIndex);
 }
 
 function previousCharacter() {
@@ -91,33 +82,34 @@ function previousCharacter() {
     if (currentIndex < 0) {
         currentIndex = 1;
     }
-    printCharacters();
-    selectedElements();
-
+    displayCharacter(currentIndex);
 }
 
-function selectedElements() {
-    SELECTED_IMG.src = characterImgFileName[currentIndex];
-    SELECTED_CHARACTER_LIST.innerText = "Health: " + maximunHealth[currentIndex] + "\n\n" + "Normal Attack Power: " + normalAttackPower[currentIndex] + "\n\n" + "Special Attack Power: " + specialAttackPower[currentIndex];
-
+/*
+function selectedElementsHuman(chosen) {
+    SELECTED_IMG_HUMAN.src = characterImgFileName[chosen];
+    SELECTED_CHARACTER_LIST.innerText = "Health: " + maximunHealth[chosen] + "\n\n" + "Normal Attack Power: " + normalAttackPower[chosen] + "\n\n" + "Special Attack Power: " + specialAttackPower[chosen];
 }
 
+function selectedElementsComputer() {
+    if (currentIndex == 0) {
+        SELECTED_IMG_COMPUTER.src = characterImgFileName[1];
+        COMPUTER_CHARACTER_LIST.innerText = "Health: " + maximunHealth[1] + "\n\n" + "Normal Attack Power: " + normalAttackPower[1] + "\n\n" + "Special Attack Power: " + specialAttackPower[1];
+        
+    }
+    else {
+        SELECTED_IMG_COMPUTER.src = characterImgFileName[0];
+        COMPUTER_CHARACTER_LIST.innerText = "Health: " + maximunHealth[0] + "\n\n" + "Normal Attack Power: " + normalAttackPower[0] + "\n\n" + "Special Attack Power: " + specialAttackPower[0];
+
+    }
+   
+}
+ */
 function selectCharacter() {
-    selectedCharacter = currentIndex;
-    document.getElementById("Page1").hidden = true;
-    document.getElementById("Page2").hidden = false;
+    location.href="game.html";
+    window.localStorage.setItem('selectedCharacter', currentIndex);
 
-    showCurrentImage();
-    printCharacters();
 }
-
-
-
-
-
-
-
-
 
 
 
