@@ -13,21 +13,35 @@
                 <div class="flexbox-item flexbox-item-3" >
                     <div class="flexbox-container">
     
+
+    
+
                         <div class="flexbox-item flexbox-item-4">
                             <h4>Human</h4>
-    
+
                             <img id="selectedCharacterImageHuman" width="250" height="250">
                             <h4 id="selectedCharacterList"></h4>
-                            
-                            <div hidden="true">
-                                <h2 id="characterList"></h2>
-                                <img id="characterImg">
-                                <h2 style="text-align: left;" id="statsDisplay"></h2>
+
+                            <div class="flexbox-item flexbox-item-6" id="bottombuttonsgame">
+
+                                <button type="button" onclick="normalAttack();">Normal Attack</button>
+                                <button type="button" onclick="specialAttack();">Special Attack</button>
+    
+                                    
+                                <button type="button" onclick="heal();">Heal</button>
+                                
                             </div>
-                            
 
                         </div>
-    
+                        
+                        <div hidden="true">
+                            <h2 id="characterList"></h2>
+                            <img id="characterImg">
+                            <h2 style="text-align: left;" id="statsDisplay"></h2>
+                        </div>
+                        
+
+
                         <div class="flexbox-item flexbox-item-5">
                             <h4>Computer</h4>
     

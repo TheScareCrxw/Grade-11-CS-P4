@@ -85,26 +85,6 @@ function previousCharacter() {
     displayCharacter(currentIndex);
 }
 
-/*
-function selectedElementsHuman(chosen) {
-    SELECTED_IMG_HUMAN.src = characterImgFileName[chosen];
-    SELECTED_CHARACTER_LIST.innerText = "Health: " + maximunHealth[chosen] + "\n\n" + "Normal Attack Power: " + normalAttackPower[chosen] + "\n\n" + "Special Attack Power: " + specialAttackPower[chosen];
-}
-
-function selectedElementsComputer() {
-    if (currentIndex == 0) {
-        SELECTED_IMG_COMPUTER.src = characterImgFileName[1];
-        COMPUTER_CHARACTER_LIST.innerText = "Health: " + maximunHealth[1] + "\n\n" + "Normal Attack Power: " + normalAttackPower[1] + "\n\n" + "Special Attack Power: " + specialAttackPower[1];
-        
-    }
-    else {
-        SELECTED_IMG_COMPUTER.src = characterImgFileName[0];
-        COMPUTER_CHARACTER_LIST.innerText = "Health: " + maximunHealth[0] + "\n\n" + "Normal Attack Power: " + normalAttackPower[0] + "\n\n" + "Special Attack Power: " + specialAttackPower[0];
-
-    }
-   
-}
- */
 function selectCharacter() {
     location.href="game.html";
     window.localStorage.setItem('selectedCharacter', currentIndex);
