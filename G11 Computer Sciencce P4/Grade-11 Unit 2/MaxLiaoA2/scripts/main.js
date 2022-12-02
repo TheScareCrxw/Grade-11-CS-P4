@@ -15,7 +15,7 @@ const SELECTED_IMG_COMPUTER = document.getElementById("selectedCharacterImageCom
 const SELECTED_CHARACTER_LIST = document.getElementById("selectedCharacterList");
 const COMPUTER_CHARACTER_LIST = document.getElementById("computerCharacterList");
 
-const WORDLIST = ["He", ""]
+const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boot","cower","tough","cheat","other","youth","ignore","breast","scrape","desire","polish","patient","equinox","confine","deliver","reactor","marriage","position","research","economist","wisecrack","modernize","psychology"]
 
 // Vaeriables used to store arrays for game
 

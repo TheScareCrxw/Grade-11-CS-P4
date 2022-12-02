@@ -14,6 +14,8 @@ const SELECTED_IMG_HUMAN = document.getElementById("selectedCharacterImageHuman"
 const SELECTED_IMG_COMPUTER = document.getElementById("selectedCharacterImageComputer");
 const SELECTED_CHARACTER_LIST = document.getElementById("selectedCharacterList");
 const COMPUTER_CHARACTER_LIST = document.getElementById("computerCharacterList");
+const DISPLAY_WORD = document.getElementById("displayWord");
+const INPUT = document.getElementById("textbox");
 
 const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boot","cower","tough","cheat","other","youth","ignore","breast","scrape","desire","polish","patient","equinox","confine","deliver","reactor","marriage","position","research","economist","wisecrack","modernize","psychology"]
 
@@ -32,6 +34,24 @@ let oppositeIndex = 1;
 
 let characterNumber = 1;
 
+let randomNumer;
+
+let textBoxValue;
+
+let text;
+
+let text2;
+
+let word;
+
+let attack = false;
+
+
+
+
+setInterval(RNG,30000,0,WORDLIST.length);
+
+setInterval(update, 10);
 
 start();
 
@@ -41,7 +61,13 @@ function start() {
     showCurrentImage();
     selectedElementsHuman(currentIndex);
     selectedElementsComputer(oppositeIndex);
-    
+    RNG(0,WORDLIST.length)
+}
+
+function RNG(min,max) {
+    randomNumer = Math.floor(Math.random() * (max - min));
+    word = WORDLIST[randomNumer]
+    DISPLAY_WORD.innerText = word;
 }
 
 function createCharacters() {
@@ -130,22 +156,39 @@ function selectCharacter() {
     selectedElementsComputer(oppositeIndex);
 }
 
+function timerForAttack() {
+    attack = true;
+}
+
+
 function normalAttack(playerIndex) {
-    health[playerIndex] -= normalAttackPower[currentIndex] 
-    updateElementsInGameComputer(playerIndex);
-    
+    if (text == word.slice(0,INPUT.length)) {
+        health[playerIndex] -= normalAttackPower[currentIndex] 
+        updateElementsInGameComputer(playerIndex);
+    }
 }
 
 function specialAttack(playerIndex) {
-    health[playerIndex] -= specialAttackPower[currentIndex] 
-    updateElementsInGameComputer(playerIndex);
+    if (text == word.slice(0,INPUT.length)) {
+        health[playerIndex] -= specialAttackPower[currentIndex] 
+        updateElementsInGameComputer(playerIndex);
+    }
 }
 
 function heal(playerIndex) {
     health[playerIndex] += healPower[playerIndex] 
     updateElementsInGameHuman(playerIndex);
+    checkTextBox();
 }
 
 
+function checkTextBox() {
+    textBoxValue = INPUT.value;
+    text = textBoxValue.slice(0,INPUT.length);
 
-// CODE FOR SECOND PAGE WHERE PLAYER ACTUALLY PLAYS THE GAME
+}
+
+function update() {
+    text2 = INPUT.length;
+}
+

@@ -47,6 +47,7 @@
 
                 <div class="flexbox-item flexbox-item-3" >
                     <div class="flexbox-container">
+                        
 
                         <div class="flexbox-item flexbox-item-4">
                             <h4>Human</h4>
@@ -58,14 +59,14 @@
 
                                 <button type="button" onclick="normalAttack(oppositeIndex);">Normal Attack</button>
                                 <button type="button" onclick="specialAttack(oppositeIndex);">Special Attack</button>
-    
                                 <button type="button" onclick="heal(currentIndex);">Heal</button>
                                 
                             </div>
                         </div>
-                            
+                        <p id="displayWord"></p>
                         <div class="flexbox-item flexbox-item-7" id="typeracer">
-                            <input type="text"/>
+                        
+                            <input type="text" id="textbox" oninput="checkTextBox();"/>
                         </div>
                         
                         <div class="flexbox-item flexbox-item-5">
