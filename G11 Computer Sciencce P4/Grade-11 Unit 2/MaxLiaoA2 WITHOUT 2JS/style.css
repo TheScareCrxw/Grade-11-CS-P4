@@ -19,6 +19,18 @@ body {
 
 }
 
+#typeracer{
+    display: flex;
+    position: absolute;
+    margin-top: 400px;
+    margin-left: 400px;
+    justify-content:center;
+    height: 50px;
+    width: 300px;
+}
+
+
+
 .flexbox-container {
     display: flex;
     justify-content: space-between;
@@ -87,6 +99,13 @@ body {
     height: 75px;
     width: 1015px;
     
+}
+.flexbox-item-7 {
+    padding: 7px;
+    text-align: left;
+    height: 75px;
+    width: 1015px;
+    background-color: #800020;
 }
 
 button {

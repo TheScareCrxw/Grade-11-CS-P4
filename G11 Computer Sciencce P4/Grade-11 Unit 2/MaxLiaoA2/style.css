@@ -14,9 +14,18 @@ body {
 #bottombuttonsgame{
     display: flex;
     position: absolute;
-    margin-top: 50px;
+    margin-top: 30px;
     justify-content:space-between;
+}
 
+#typeracer{
+    display: flex;
+    position: absolute;
+    margin-top: 400px;
+    margin-left: 400px;
+    justify-content:center;
+    height: 50px;
+    width: 300px;
 }
 
 
@@ -89,10 +98,18 @@ body {
     height: 75px;
     width: 1015px;
     background-color: #EE4E34;
-
-    
 }
 
+
+.flexbox-item-7 {
+    padding: 7px;
+    text-align: left;
+    height: 75px;
+    width: 1015px;
+    background-color: #EE4E34;
+
+
+}
 
 button {
     padding: 10px 20px;
