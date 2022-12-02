@@ -128,26 +128,22 @@ function selectCharacter() {
     }
     selectedElementsHuman(currentIndex);
     selectedElementsComputer(oppositeIndex);
-
 }
 
 function normalAttack(playerIndex) {
-    health[playerIndex] -= normalAttackPower[playerIndex] 
+    health[playerIndex] -= normalAttackPower[currentIndex] 
     updateElementsInGameComputer(playerIndex);
     
 }
 
 function specialAttack(playerIndex) {
-    health[playerIndex] -= specialAttackPower[playerIndex] 
+    health[playerIndex] -= specialAttackPower[currentIndex] 
     updateElementsInGameComputer(playerIndex);
 }
 
 function heal(playerIndex) {
     health[playerIndex] += healPower[playerIndex] 
     updateElementsInGameHuman(playerIndex);
-
-    
-
 }
 
 

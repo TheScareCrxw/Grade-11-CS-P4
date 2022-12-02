@@ -21,11 +21,15 @@ const WORDLIST = ["He", ""]
 
 let characters = new Array(NUMBER_OF_CHARACTERS);
 let characterImgFileName = new Array(NUMBER_OF_CHARACTERS);
-let maximunHealth = new Array(NUMBER_OF_CHARACTERS);
+let health = new Array(NUMBER_OF_CHARACTERS);
 let normalAttackPower = new Array(NUMBER_OF_CHARACTERS);
 let specialAttackPower = new Array(NUMBER_OF_CHARACTERS);
+let healPower = new Array(NUMBER_OF_CHARACTERS);
+
 
 let currentIndex = 0;
+
+let oppositeIndex;
 
 let characterNumber = 1;
 
@@ -36,25 +40,23 @@ function start() {
     createCharacters();
     displayCharacter(currentIndex);
     showCurrentImage();
-
-    /*
-    selectedElementsHuman(currentIndex);
-    selectedElementsComputer();
-    */
 }
 
 function createCharacters() {
     characters[HUMAN] = "Zer";
     characterImgFileName[HUMAN] = "Character2.gif";
-    maximunHealth[HUMAN] = 260 ;
+    health[HUMAN] = 260 ;
     normalAttackPower[HUMAN] = 6;
     specialAttackPower[HUMAN] = 63;
+    healPower[HUMAN] = 34;
     
     characters[COMPUTER] = "Loz";
     characterImgFileName[COMPUTER] = "Character1.gif";
-    maximunHealth[COMPUTER] = 235 ;
+    health[COMPUTER] = 235 ;
     normalAttackPower[COMPUTER] = 8;
     specialAttackPower[COMPUTER] = 70;
+    healPower[COMPUTER] = 12;
+
 }
 
 function showCurrentImage() {
@@ -66,7 +68,7 @@ function showCurrentImage() {
 function displayCharacter(index) {
     P_CHARACTER_LIST.innerText = characters[index];
     showCurrentImage();
-    P_CHARACTER_STATS.innerText = "Health: " + maximunHealth[index] + "\n\n" + "Normal Attack Power: " + normalAttackPower[index] + "\n\n" + "Special Attack Power: " + specialAttackPower[index];
+    P_CHARACTER_STATS.innerText = "Health: " + health[index] + "\n\n" + "Normal Attack Power: " + normalAttackPower[index] + "\n\n" + "Special Attack Power: " + specialAttackPower[index] + "\n\n" + "Heal Power: " +  healPower[index];
 }
 
 function nextCharacter() {
@@ -87,10 +89,13 @@ function previousCharacter() {
 
 function selectCharacter() {
     location.href="game.html";
+    if (currentIndex == 0) {
+        oppositeIndex = 1
+    }
+    else {
+        oppositeIndex = 0
+    }
+    window.localStorage.setItem('oppositeCharacter', oppositeIndex);
     window.localStorage.setItem('selectedCharacter', currentIndex);
-
 }
 
-
-
-// CODE FOR SECOND PAGE WHERE PLAYER ACTUALLY PLAYS THE GAME
