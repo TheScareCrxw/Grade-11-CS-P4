@@ -56,16 +56,20 @@
 
                             <div class="flexbox-item flexbox-item-6" id="bottombuttonsgame">
 
-                                <button type="button" onclick="normalAttack(oppositeIndex);">Normal Attack</button>
+                                <button type="button" onclick="showWord();">Normal Attack</button>
                                 <button type="button" onclick="specialAttack(oppositeIndex);">Special Attack</button>
-    
                                 <button type="button" onclick="heal(currentIndex);">Heal</button>
-                                
                             </div>
                         </div>
-                            
+
                         <div class="flexbox-item flexbox-item-7" id="typeracer">
-                            <input type="text"/>
+                            <center>
+                                <input type="text" id="textbox"  style="height: 35px;" oninput="input();">
+                                <p id="numberDisplay"></p>
+                                <p id="correct"></p>
+                                <p id="wrong"></p>
+                                <p id="firstChara"></p>
+                            </center>
                         </div>
                         
                         <div class="flexbox-item flexbox-item-5">
@@ -75,7 +79,6 @@
                             <h4 id="computerCharacterList"></h4>
                         </div>
     
-
                     </div>
                 </div>
             </div>

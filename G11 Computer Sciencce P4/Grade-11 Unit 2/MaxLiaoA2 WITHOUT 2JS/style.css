@@ -6,7 +6,7 @@ body {
 #bottombuttonsstart{
     bottom: 0; 
     position: absolute;
-    margin-bottom: 50px;
+    margin-bottom: 70px;
     margin-left: -15px;
     width: 50%;
 }
@@ -20,12 +20,11 @@ body {
 }
 
 #typeracer{
-    display: flex;
     position: absolute;
-    margin-top: 400px;
-    margin-left: 400px;
+    margin-top: 300px;
+    margin-left: 435px;
     justify-content:center;
-    height: 50px;
+    height: 100px;
     width: 300px;
 }
 

@@ -72,3 +72,4 @@ function heal(playerIndex) {
     health[playerIndex] += healPower[playerIndex] 
     updateElementsInGameHuman(playerIndex);
 }
+
