@@ -14,8 +14,13 @@ const SELECTED_IMG_HUMAN = document.getElementById("selectedCharacterImageHuman"
 const SELECTED_IMG_COMPUTER = document.getElementById("selectedCharacterImageComputer");
 const SELECTED_CHARACTER_LIST = document.getElementById("selectedCharacterList");
 const COMPUTER_CHARACTER_LIST = document.getElementById("computerCharacterList");
+<<<<<<< HEAD
 const I_INPUT_TEXT = document.getElementById("textbox");
 const P_NUMBER = document.getElementById("numberDisplay");
+=======
+const DISPLAY_WORD = document.getElementById("displayWord");
+const INPUT = document.getElementById("textbox");
+>>>>>>> 6d1337519100ced0bae12adc29ce9b8d074d81e9
 
 const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boot","cower","tough","cheat","other","youth","ignore","breast","scrape","desire","polish","patient","equinox","confine","deliver","reactor","marriage","position","research","economist","wisecrack","modernize","psychology"]
 
@@ -34,6 +39,7 @@ let oppositeIndex = 1;
 
 let characterNumber = 1;
 
+<<<<<<< HEAD
 let correctWord;
 let incorrectWord;
 let randomWord;
@@ -47,10 +53,22 @@ let h;
 
 
 let textBoxValue = I_INPUT_TEXT.value; 
+=======
+let randomNumer;
+
+let textBoxValue;
+
+let text;
+
+let text2;
+
+let word;
+>>>>>>> 6d1337519100ced0bae12adc29ce9b8d074d81e9
 
 let attack = false;
 
 
+<<<<<<< HEAD
 setInterval(update, 20);
 
 setInterval(autoAttackNormal, 5000);
@@ -62,6 +80,13 @@ setInterval(autoHeal, 10000);
 setInterval(runwheninput, 10);
 
 //setInterval(showRandom, 30000, 0, WORDLIST.length);
+=======
+
+
+setInterval(RNG,30000,0,WORDLIST.length);
+
+setInterval(update, 10);
+>>>>>>> 6d1337519100ced0bae12adc29ce9b8d074d81e9
 
 start();
 
@@ -71,6 +96,16 @@ function start() {
     showCurrentImage();
     selectedElementsHuman(currentIndex);
     selectedElementsComputer(oppositeIndex);
+<<<<<<< HEAD
+=======
+    RNG(0,WORDLIST.length)
+}
+
+function RNG(min,max) {
+    randomNumer = Math.floor(Math.random() * (max - min));
+    word = WORDLIST[randomNumer]
+    DISPLAY_WORD.innerText = word;
+>>>>>>> 6d1337519100ced0bae12adc29ce9b8d074d81e9
 }
 
 function createCharacters() {
@@ -183,7 +218,13 @@ function selectCharacter() {
     enableAA = true;
 }
 
+function timerForAttack() {
+    attack = true;
+}
+
+
 function normalAttack(playerIndex) {
+<<<<<<< HEAD
     if (playerIndex == currentIndex) {
         health[playerIndex] -= normalAttackPower[oppositeIndex];
         
@@ -220,10 +261,39 @@ function heal(playerIndex) {
 
     }
     displayCharacter(playerIndex);
+=======
+    if (text == word.slice(0,INPUT.length)) {
+        health[playerIndex] -= normalAttackPower[currentIndex] 
+        updateElementsInGameComputer(playerIndex);
+    }
+}
+
+function specialAttack(playerIndex) {
+    if (text == word.slice(0,INPUT.length)) {
+        health[playerIndex] -= specialAttackPower[currentIndex] 
+        updateElementsInGameComputer(playerIndex);
+    }
+}
+
+function heal(playerIndex) {
+    health[playerIndex] += healPower[playerIndex] 
+    updateElementsInGameHuman(playerIndex);
+    checkTextBox();
+>>>>>>> 6d1337519100ced0bae12adc29ce9b8d074d81e9
 }
 
 
+function checkTextBox() {
+    textBoxValue = INPUT.value;
+    text = textBoxValue.slice(0,INPUT.length);
 
+}
+
+function update() {
+    text2 = INPUT.length;
+}
+
+<<<<<<< HEAD
 function update() {
     textBoxValue = I_INPUT_TEXT.value;
 
@@ -321,3 +391,5 @@ function textChecker() {
  
 
 // CODE FOR SECOND PAGE WHERE PLAYER ACTUALLY PLAYS THE GAME
+=======
+>>>>>>> 6d1337519100ced0bae12adc29ce9b8d074d81e9
