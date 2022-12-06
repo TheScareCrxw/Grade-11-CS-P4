@@ -1,12 +1,93 @@
+<!DOCTYPE html>
 <html>
-    <body>
+    <head>
+        <title> HUMAN VS COMPUTER</title>
+        <link rel="stylesheet" type="text/css" href="style.css"></link>
+        <link rel="icon" type="image/x-icon" href="favicon.png"></link>
+    </head>
 
-        <input type="text" id="textbox" oninput="textChecker();">
-        <p id="numberDisplay"></p>
-        <p id="display"></p>
-        <p id="correct"></p>
-        <button type="button" onclick="showWord();">Show Word</button>
-        
+    <body style="background-color: #101820FF;">
+
+        <div id="Page1" style="color: white;">
+
+            <div class="flexbox-container">
+
+                <div class="flexbox-item flexbox-item-1" >
+
+                    <h2 id="characterList"></h2>
+                    <img id="characterImg">
+    
+                    <div id="bottombuttonsstart">
+
+                        <button type="button" onclick="nextCharacter();">Next Character</button>
+                        <button type="button" onclick="previousCharacter();">Previous Character</button>
+                        <br />
+                        <br />
+                        <br />
+                        <button type="button"  onclick="selectCharacter();">Select Character</button>
+                
+                    </div>
+                </div>
+    
+                <div class="flexbox-item flexbox-item-2">
+
+                    <h2>Stats</h2> 
+
+                    <div style="margin-left: 50px;">
+                        <h2 style="text-align: left;" id="statsDisplay"></h2>
+                    </div>
+                </div>            
+            </div>
+        </div>
+
+
+
+        <div id="Page2" hidden="true" style="color: white;">
+            <div class="flexbox-container">
+
+                <div class="flexbox-item flexbox-item-3" >
+                    <div class="flexbox-container">
+                        
+
+                        <div class="flexbox-item flexbox-item-4">
+                            <h4>Human</h4>
+
+                            <img id="selectedCharacterImageHuman" width="250" height="250">
+                            <h4 id="selectedCharacterList"></h4>
+
+                            <div class="flexbox-item flexbox-item-6" id="bottombuttonsgame">
+
+                                <button type="button" onclick="showWord(oppositeIndex);">Normal Attack</button>
+                                <button type="button" onclick="showWord(oppositeIndex);">Special Attack</button>
+                                <button type="button" onclick="showWord(currentIndex);">Heal</button>
+                            </div>
+                        </div>
+
+                        <div class="flexbox-item flexbox-item-7" id="typeracer">
+                            <center>
+                                <input type="text" id="textbox"  style="height: 35px;" />
+                                <p id="numberDisplay"></p>
+                                <p id="correct"></p>
+                                <p id="wrong"></p>
+                                <p id="firstChara"></p>
+                            </center>
+                        </div>
+                        
+                        
+                        <div class="flexbox-item flexbox-item-5">
+                            <h4>Computer</h4>
+
+                            <img id="selectedCharacterImageComputer" width="250" height="250">
+                            <h4 id="computerCharacterList"></h4>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <script src="scripts/main.js"></script>
     </body>
 </html>
