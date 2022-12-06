@@ -21,6 +21,9 @@ const INCORRECT_DISPLAY = document.getElementById("wrong");
 
 const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boot","cower","tough","cheat","other","youth","ignore","breast","scrape","desire","polish","patient","equinox","confine","deliver","reactor","marriage","position","research","economist","wisecrack","modernize","psychology"]
 
+const ATTACK_NORMAL = 0;
+const ATTACK_SPEICAL = 1;
+
 // Vaeriables used to store arrays for game
 
 let characters = new Array(NUMBER_OF_CHARACTERS);
@@ -48,6 +51,7 @@ let wordDisplayed;
 let normalAttackValue;
 let specialAttackValue;
 let healValue; 
+let attackValue;
 
 
 let textBoxValue = I_INPUT_TEXT.value; 
@@ -155,6 +159,7 @@ function displayCharacter(player) {
 function autoAttackNormal() {
     if (enableAA == true) {
         normalAttack(currentIndex);
+        normalAttack(currentIndex);
         displayCharacter(currentIndex);
     }
 }
@@ -193,6 +198,7 @@ function timerForAttack() {
 
 
 function normalAttack(playerIndex) {
+    if (attackValue == 0)
     if (playerIndex == currentIndex) {
         health[playerIndex] -= showRandom(normalAttackPower[oppositeIndex], normalAttackPower[oppositeIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
         
@@ -240,6 +246,7 @@ function update() {
     }
     gameOver();
 }
+
 /*
 function showWordForNormal() {
     randomWord = WORDLIST[showRandom(0, WORDLIST.length - 1)];
@@ -279,10 +286,10 @@ function showWord(action) {
     INCORRECT_DISPLAY.innerText = "";
     CORRECT_DISPLAY.innerText = "";
     I_INPUT_TEXT.value = "";
-    if (action == oppositeIndex){
+    if (action == ATTACK_NORMAL){
         normalAttackValue = true;
     }
-    else if (action == oppositeIndex) {
+    else if (action == ATTACK_SPEICAL) {
         specialAttackValue = true;
     }
     else {
@@ -375,9 +382,6 @@ function textChecker() {
         INCORRECT_DISPLAY.innerText = textBoxValue.replace(replace, "");
 
     }
-
-
-
 }
 
 
