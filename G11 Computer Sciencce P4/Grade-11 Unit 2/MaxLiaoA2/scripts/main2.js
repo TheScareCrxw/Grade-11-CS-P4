@@ -9,7 +9,6 @@ function start() {
     createCharacters();
     selectedElementsHuman(selectedIndex);
     selectedElementsComputer(oppositeIndex);
-    
 }
 
 
