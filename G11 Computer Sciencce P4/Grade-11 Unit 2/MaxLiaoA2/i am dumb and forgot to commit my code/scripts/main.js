@@ -198,8 +198,7 @@ function normalAttack(playerIndex) {
         health[playerIndex] -= showRandom(normalAttackPower[oppositeIndex], normalAttackPower[oppositeIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
     }
     else {
-        randomWord = WORDLIST[showRandom(0, WORDLIST.length - 1)];
-        health[playerIndex] -= showRandom(normalAttackPower[currentIndex], normalAttackPower[currentIndex] * (WORDLIST.indexOf(randomWord) + 2) / 2);
+        health[playerIndex] -= showRandom(normalAttackPower[currentIndex], normalAttackPower[currentIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
     }
     displayCharacter(playerIndex);
 }
@@ -207,11 +206,9 @@ function normalAttack(playerIndex) {
 function specialAttack(playerIndex) {
     if (playerIndex == currentIndex) {
         health[playerIndex] -= showRandom(specialAttackPower[oppositeIndex], specialAttackPower[oppositeIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
-
     }
     else {
-        randomWord = WORDLIST[showRandom(0, WORDLIST.length - 1)];
-        health[playerIndex] -= showRandom(specialAttackPower[currentIndex], specialAttackPower[currentIndex] * (WORDLIST.indexOf(randomWord) + 2) / 2);  
+        health[playerIndex] -= showRandom(specialAttackPower[currentIndex], specialAttackPower[currentIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);  
     }
     displayCharacter(playerIndex);
 }
@@ -219,11 +216,9 @@ function specialAttack(playerIndex) {
 function heal(playerIndex) {
     if (playerIndex == currentIndex) {
         health[playerIndex] += showRandom(healPower[currentIndex], healPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
-    
     }
     else {
-        randomWord = WORDLIST[showRandom(0, WORDLIST.length - 1)];
-        health[playerIndex] += showRandom(healPower[oppositeIndex], healPower[oppositeIndex] * (WORDLIST.indexOf(randomWord) + 2) / 2);
+        health[playerIndex] += showRandom(healPower[oppositeIndex], healPower[oppositeIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
     }
     displayCharacter(playerIndex);
 }

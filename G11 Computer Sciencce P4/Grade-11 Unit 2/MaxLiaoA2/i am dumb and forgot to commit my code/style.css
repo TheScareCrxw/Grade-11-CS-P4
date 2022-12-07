@@ -14,8 +14,10 @@ body {
 #bottombuttonsgame{
     display: flex;
     position: absolute;
-    margin-top: 50px;
+    margin-top: 35px;
+    margin-left: 60px;
     justify-content:space-between;
+    
 
 }
 
@@ -28,8 +30,6 @@ body {
     width: 300px;
     text-align: center;
     align-content: center;
-
-    
 }
 
 
