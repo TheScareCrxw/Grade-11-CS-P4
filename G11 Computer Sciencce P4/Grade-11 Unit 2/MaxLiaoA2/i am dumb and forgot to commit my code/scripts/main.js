@@ -42,7 +42,7 @@ let characterNumber = 1;
 let correctWord;
 let incorrectWord;
 let randomWord;
-let enableAA = false;
+//let enableAA = false;
 
 let firstChar;
 let indexOfTextBox = 0;
@@ -61,11 +61,7 @@ let attack = false;
 
 setInterval(update, 20);
 
-setInterval(autoAttackNormal, 5000);
 
-setInterval(autoAttackSpecial, 15000);
-
-setInterval(autoHeal, 10000);
 
 start();
 
@@ -153,25 +149,25 @@ function displayCharacter(player) {
 }
 
 function autoAttackNormal() {
-    if (enableAA == true) {
-        normalAttack(currentIndex);
-        normalAttack(currentIndex);
-        displayCharacter(currentIndex);
-    }
+    //if (enableAA == true) {
+    normalAttack(currentIndex);
+    normalAttack(currentIndex);
+    displayCharacter(currentIndex);
+    //}
 }
 
 function autoAttackSpecial() {
-    if (enableAA == true) {
-        specialAttack(currentIndex);
-        displayCharacter(currentIndex);
-    }
+    //if (enableAA == true) {
+    specialAttack(currentIndex);
+    displayCharacter(currentIndex);
+    //}
 }
  
 function autoHeal() {
-    if (enableAA == true) {
-        heal(oppositeIndex);
-        displayCharacter(oppositeIndex);
-    }
+    //if (enableAA == true) {
+    heal(oppositeIndex);
+    displayCharacter(oppositeIndex);
+    //}
 }
 
 function selectCharacter() {
@@ -185,13 +181,14 @@ function selectCharacter() {
     }
     selectedElementsHuman(currentIndex);
     selectedElementsComputer(oppositeIndex);
-    enableAA = true;
-}
+    //enableAA = true;
+    
+    setInterval(autoAttackNormal, 5000);
 
-function timerForAttack() {
-    attack = true;
-}
+    setInterval(autoAttackSpecial, 15000);
 
+    setInterval(autoHeal, 10000);
+}
 
 function normalAttack(playerIndex) {
     if (playerIndex == currentIndex) {
