@@ -23,6 +23,7 @@ const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boo
 
 const ATTACK_NORMAL = 0;
 const ATTACK_SPEICAL = 1;
+const HEAL = 2;
 
 // Vaeriables used to store arrays for game
 
@@ -40,28 +41,25 @@ let oppositeIndex = 1;
 let characterNumber = 1;
 
 let correctWord;
-let incorrectWord;
 let randomWord;
-//let enableAA = false;
 
 let firstChar;
 let indexOfTextBox = 0;
-let z = false;
 let wordDisplayed;
 let normalAttackValue;
 let specialAttackValue;
 let healValue; 
-let attackValue;
 
+let lastCharacter;
+
+let savedCorrectLetters = 0;
+let textBoxValueLength = 0;
+let lastOccurance;
+let correctLetters;
 
 let textBoxValue = I_INPUT_TEXT.value; 
 
-let attack = false;
-
-
 setInterval(update, 20);
-
-
 
 start();
 
@@ -87,7 +85,6 @@ function createCharacters() {
     normalAttackPower[COMPUTER] = 8;
     specialAttackPower[COMPUTER] = 70;
     healPower[COMPUTER] = 12;
-
 }
 
 function showCurrentImage() {
@@ -118,7 +115,6 @@ function previousCharacter() {
     displayCharacters(currentIndex);
 }
 
-
 function selectedElementsHuman(chosen) {
     SELECTED_IMG_HUMAN.src = characterImgFileName[chosen];
     SELECTED_CHARACTER_LIST.innerText = "Health: " + health[chosen] + "\n\n" + "Normal Attack Power: " + normalAttackPower[chosen] + "\n\n" + "Special Attack Power: " + specialAttackPower[chosen] + "\n\n" + "Heal Power: " +  healPower[chosen];
@@ -138,7 +134,6 @@ function selectedElementsComputer(chosen) {
     }
 }
 
-
 function displayCharacter(player) {
     if (player == oppositeIndex) {
         COMPUTER_CHARACTER_LIST.innerText = "Health : " + health[player] + "\n\n" + "Normal Attack Power: " + normalAttackPower[player] + "\n\n" + "Special Attack Power: " + specialAttackPower[player] + "\n\n" + "Heal Power: " +  healPower[player];
@@ -149,25 +144,18 @@ function displayCharacter(player) {
 }
 
 function autoAttackNormal() {
-    //if (enableAA == true) {
-    normalAttack(currentIndex);
     normalAttack(currentIndex);
     displayCharacter(currentIndex);
-    //}
 }
 
 function autoAttackSpecial() {
-    //if (enableAA == true) {
     specialAttack(currentIndex);
     displayCharacter(currentIndex);
-    //}
 }
  
 function autoHeal() {
-    //if (enableAA == true) {
     heal(oppositeIndex);
     displayCharacter(oppositeIndex);
-    //}
 }
 
 function selectCharacter() {
@@ -181,7 +169,6 @@ function selectCharacter() {
     }
     selectedElementsHuman(currentIndex);
     selectedElementsComputer(oppositeIndex);
-    //enableAA = true;
     
     setInterval(autoAttackNormal, 5000);
 
@@ -192,114 +179,64 @@ function selectCharacter() {
 
 function normalAttack(playerIndex) {
     if (playerIndex == currentIndex) {
-        health[playerIndex] -= showRandom(normalAttackPower[oppositeIndex], normalAttackPower[oppositeIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
+        health[playerIndex] -= showRandom(normalAttackPower[oppositeIndex], normalAttackPower[oppositeIndex] * (showRandom(0, WORDLIST.length) + 2) / 2) * 2;
     }
     else {
-        health[playerIndex] -= showRandom(normalAttackPower[currentIndex], normalAttackPower[currentIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
+        health[playerIndex] -= showRandom(normalAttackPower[currentIndex], normalAttackPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
     }
     displayCharacter(playerIndex);
 }
 
 function specialAttack(playerIndex) {
     if (playerIndex == currentIndex) {
-        health[playerIndex] -= showRandom(specialAttackPower[oppositeIndex], specialAttackPower[oppositeIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
+        health[playerIndex] -= showRandom(specialAttackPower[oppositeIndex], specialAttackPower[oppositeIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
     }
     else {
-        health[playerIndex] -= showRandom(specialAttackPower[currentIndex], specialAttackPower[currentIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);  
+        health[playerIndex] -= showRandom(specialAttackPower[currentIndex], specialAttackPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
     }
     displayCharacter(playerIndex);
 }
 
 function heal(playerIndex) {
     if (playerIndex == currentIndex) {
-        health[playerIndex] += showRandom(healPower[currentIndex], healPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
+        health[playerIndex] -= showRandom(healPower[oppositeIndex], healPower[oppositeIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
     }
     else {
-        health[playerIndex] += showRandom(healPower[oppositeIndex], healPower[oppositeIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
+        health[playerIndex] -= showRandom(healPower[currentIndex], healPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
     }
     displayCharacter(playerIndex);
 }
 
 function update() {
     textBoxValue = I_INPUT_TEXT.value;
-    if (textBoxValue.length > 0 && (normalAttackValue == true || specialAttackValue == true || healValue == true)) {
-        textChecker();
-    }
-    if (textBoxValue.length == 0) {
-        CORRECT_DISPLAY.innerText = "";
-        INCORRECT_DISPLAY.innerText = "";
-    }
-    gameOver();
-}
 
-function showWord(action) {
-    randomWord = WORDLIST[showRandom(0, WORDLIST.length - 1)];
-    wordDisplayed = randomWord
-    P_NUMBER.innerText = wordDisplayed;
-    indexOfTextBox = 0;
-    INCORRECT_DISPLAY.innerText = "";
-    CORRECT_DISPLAY.innerText = "";
-    I_INPUT_TEXT.value = "";
-    if (action == ATTACK_NORMAL){
-        normalAttackValue = true;
-    }
-    else if (action == ATTACK_SPEICAL) {
-        specialAttackValue = true;
-    }
-    else {
-        healValue = true;
-    }
-}
-
-function showRandom(min, max){
-    return Math.floor(Math.random() * (max-min + 1)) + min;
-}
-
-function getStringFront(word) {
-    return word.substring(0,1);
-}
-
-function getStringBack(word) {
-    return word.substring(1);
-}
-
-function getLastCharacter(word) {
-    return word[word.length - 1];
-}
-
-
-
-
-
-let x;
-
-let a = 0;
-let b = 0;
-let lastIndex;
-let replace;
-function textChecker() {
-    b = textBoxValue.length
     if (textBoxValue[indexOfTextBox] == getStringFront(randomWord)) {
-        a = textBoxValue.length;
-        x = getLastCharacter(textBoxValue)
+        savedCorrectLetters = textBoxValue.length;
+        lastCharacter = getLastCharacter(textBoxValue);
         randomWord = getStringBack(randomWord); 
         correctWord = randomWord;
         CORRECT_DISPLAY.style.color = "green";
         CORRECT_DISPLAY.innerText = correctWord;
-        
-        indexOfTextBox ++
+        indexOfTextBox ++;
     }
-    else if (a - 1 == b){
-        correctWord = x + correctWord
-        x = getLastCharacter(textBoxValue)
+    else if (savedCorrectLetters - 1 == textBoxValueLength){
+        correctWord = lastCharacter + correctWord
+        lastCharacter = getLastCharacter(textBoxValue)
         CORRECT_DISPLAY.style.color = "green";
         CORRECT_DISPLAY.innerText = correctWord;
         INCORRECT_DISPLAY.innerText = "";
-        a = textBoxValue.length;
+        savedCorrectLetters = textBoxValue.length;
         getStringFront(correctWord)
         randomWord = wordDisplayed.replace(correctWord, "")
         randomWord = wordDisplayed.replace(randomWord,"")
         indexOfTextBox -- 
+    }
+    else if(textBoxValue[0] == lastCharacter){
+        CORRECT_DISPLAY.innerText = correctWord;
+    }
+    else if (textBoxValueLength == 0){
+        randomWord = wordDisplayed
+        indexOfTextBox = 0
     }
     else if (textBoxValue == wordDisplayed) {
         I_INPUT_TEXT.value = "";
@@ -319,24 +256,58 @@ function textChecker() {
             randomWord = null;
             healValue = false;
         }
-        
     }
-
-    else if (textBoxValue[textBoxValue.length - 1] != getStringBack(textBoxValue)){
-        lastIndex = wordDisplayed.lastIndexOf(correctWord)
-        replace = wordDisplayed.substring(0, lastIndex);
+    else {
+        lastOccurance = wordDisplayed.lastIndexOf(correctWord)
+        correctLetters = wordDisplayed.substring(0, lastOccurance);
         INCORRECT_DISPLAY.style.color = "red";
-        INCORRECT_DISPLAY.innerText = textBoxValue.replace(replace, "");
+        INCORRECT_DISPLAY.innerText = textBoxValue.replace(correctLetters, "");
+    }
+    }
+    if (textBoxValue.length == 0) {
+        CORRECT_DISPLAY.innerText = "";
+        INCORRECT_DISPLAY.innerText = "";
+    }
+    gameOver();
 
+function showWord(action) {
+    randomWord = WORDLIST[showRandom(0, WORDLIST.length - 1)];
+    wordDisplayed = randomWord
+    P_NUMBER.innerText = wordDisplayed;
+    indexOfTextBox = 0;
+    INCORRECT_DISPLAY.innerText = "";
+    CORRECT_DISPLAY.innerText = "";
+    I_INPUT_TEXT.value = "";
+    if (action == ATTACK_NORMAL){
+        normalAttackValue = true;
+    }
+    else if (action == ATTACK_SPEICAL) {
+        specialAttackValue = true;
+    }
+    else if (action == HEAL){
+        healValue = true;
     }
 }
 
+function showRandom(min, max){
+    return Math.floor(Math.random() * (max-min + 1)) + min;
+}
 
+function getStringFront(word) {
+    return word.substring(0, 1);
+}
+
+function getStringBack(word) {
+    return word.substring(1);
+}
+
+function getLastCharacter(word) {
+    return word[word.length - 1];
+}
 
 function gameOver() {
     if (health[oppositeIndex] <= 0 || health[currentIndex] <= 0){
         //location.href = "gameOver.html"
-       
     }
 }
 
