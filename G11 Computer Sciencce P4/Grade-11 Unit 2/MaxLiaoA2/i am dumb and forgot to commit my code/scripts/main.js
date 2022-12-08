@@ -21,7 +21,7 @@ const COMPUTER_CHARACTER_LIST = document.getElementById("computerCharacterList")
 
 // constants for the type racer function 
 const I_INPUT_TEXT = document.getElementById("textbox");
-const P_NUMBER = document.getElementById("numberDisplay");
+const P_DISPLAYWORD = document.getElementById("numberDisplay");
 const CORRECT_DISPLAY = document.getElementById("correct");
 const INCORRECT_DISPLAY = document.getElementById("wrong");
 
@@ -59,7 +59,7 @@ let wordDisplayed;
 
 // action values to differentiate which action was done 
 let normalAttackValue;
-let specialAttackValue;
+let specialAttackValue = false;
 let healValue; 
 
 // last character of the string for when the user deletes a letter
@@ -75,7 +75,7 @@ let textBoxValueLength = 0;
 let lastOccurance;
 
 // correct letters the user has typed into the text box
-let correctLetters;
+let correctLetters = 0;
 
 // stores the users input value 
 let textBoxValue = I_INPUT_TEXT.value; 
@@ -247,6 +247,7 @@ function specialAttack(playerIndex) {
     // if the parameters is equal to the computers index it will do the players damage 
     else {
         health[playerIndex] -= showRandom(specialAttackPower[currentIndex], specialAttackPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
+        document.getElementById("specialAttackBtn").disabled = true;
     }
     // updates the players stats 
     displayCharacter(playerIndex);
@@ -267,6 +268,7 @@ function heal(playerIndex) {
 
 function update() {
     textBoxValue = I_INPUT_TEXT.value;
+
     if (textBoxValueLength >= 0 && (normalAttackValue == true || specialAttackValue == true || healValue == true)) {
         textBoxValueLength = textBoxValue.length;
 
@@ -291,26 +293,43 @@ function update() {
             randomWord = wordDisplayed.replace(randomWord,"")
             indexOfTextBox -- 
         }
-        else if(textBoxValue[0] == lastCharacter){
-            CORRECT_DISPLAY.innerText = correctWord;
-        }
+
         else if (textBoxValueLength == 0){
             randomWord = wordDisplayed
+            savedCorrectLetters = 0
             indexOfTextBox = 0
         }
+
+
+
+        // if the word is not perfect for special attack
+        else if (INCORRECT_DISPLAY.innerText.length > 0 && (specialAttackValue == true && textBoxValue.replace(correctLetters, "").length == 0 && correctLetters == textBoxValue) == false){
+            specialAttackValue = false;
+            CORRECT_DISPLAY.innerText = "";
+            INCORRECT_DISPLAY.innerText = "";
+            P_DISPLAYWORD.innerText = "";
+            I_INPUT_TEXT.value = "";
+            document.getElementById("specialAttackBtn").disabled = true;
+            setInterval(enableSpecialAttack,15000)
+        }
+        
         else if (textBoxValue == wordDisplayed) {
             I_INPUT_TEXT.value = "";
-            P_NUMBER.innerText = "";
+            P_DISPLAYWORD.innerText = "";
             if (normalAttackValue == true) {
                 normalAttack(computerIndex);
                 randomWord = null;
                 normalAttackValue = false;
             }
+            
             else if (specialAttackValue == true){
                 specialAttack(computerIndex);
                 randomWord = null;
                 specialAttackValue = false;
+                document.getElementById("specialAttackBtn").disabled = true;
+                setInterval(enableSpecialAttack,15000)
             }
+            
             else if (healValue == true) {
                 heal(currentIndex);
                 randomWord = null;
@@ -323,19 +342,23 @@ function update() {
             INCORRECT_DISPLAY.style.color = "red";
             INCORRECT_DISPLAY.innerText = textBoxValue.replace(correctLetters, "");
         }
-        
-        if (textBoxValue.length == 0) {
-            CORRECT_DISPLAY.innerText = "";
-            INCORRECT_DISPLAY.innerText = "";
-        }
+
+        //if (textBoxValue.length == 0) {
+        //    CORRECT_DISPLAY.innerText = "";
+        //    INCORRECT_DISPLAY.innerText = "";
+        //}
         gameOver();
     }
+}
+
+function enableSpecialAttack() {
+    document.getElementById("specialAttackBtn").disabled = false;
 }
 
 function showWord(action) {
     randomWord = WORDLIST[showRandom(0, WORDLIST.length - 1)];
     wordDisplayed = randomWord
-    P_NUMBER.innerText = wordDisplayed;
+    P_DISPLAYWORD.innerText = wordDisplayed;
     indexOfTextBox = 0;
     INCORRECT_DISPLAY.innerText = "";
     CORRECT_DISPLAY.innerText = "";
@@ -351,28 +374,36 @@ function showWord(action) {
     }
 }
 
+// function that calculates and returns a random number within a certain range
 function showRandom(min, max){
     return Math.floor(Math.random() * (max-min + 1)) + min;
 }
 
+// function that returns the first letter of a string removing the rest of the letters
 function getStringFront(word) {
     return word.substring(0, 1);
 }
 
+// function that returns a string with the first letter removed 
 function getStringBack(word) {
     return word.substring(1);
 }
 
+// function that returns the last letter of a string  
 function getLastCharacter(word) {
     return word[word.length - 1];
 }
 
+// function that checks if either the computer or player has less than 0 health
+// if it is, the game is over and it will open gameOver page
 function gameOver() {
     if (health[computerIndex] <= 0 || health[currentIndex] <= 0){
         //location.href = "gameOver.html"
     }
 }
 
+// this function lets the user restart the game and redirects the user to the index.html 
+// when redirected, the html page will load up everything again and the game will run
 function restart(){
     //location.href = "index.html"
 }
