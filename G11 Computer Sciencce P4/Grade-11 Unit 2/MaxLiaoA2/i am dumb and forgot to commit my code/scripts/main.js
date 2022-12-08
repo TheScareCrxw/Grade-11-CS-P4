@@ -298,20 +298,10 @@ function update() {
             randomWord = wordDisplayed
             savedCorrectLetters = 0
             indexOfTextBox = 0
-        }
-
-
-
-        // if the word is not perfect for special attack
-        else if (INCORRECT_DISPLAY.innerText.length > 0 && (specialAttackValue == true && textBoxValue.replace(correctLetters, "").length == 0 && correctLetters == textBoxValue) == false){
-            specialAttackValue = false;
             CORRECT_DISPLAY.innerText = "";
             INCORRECT_DISPLAY.innerText = "";
-            P_DISPLAYWORD.innerText = "";
-            I_INPUT_TEXT.value = "";
-            document.getElementById("specialAttackBtn").disabled = true;
-            setInterval(enableSpecialAttack,15000)
         }
+
         
         else if (textBoxValue == wordDisplayed) {
             I_INPUT_TEXT.value = "";
@@ -320,6 +310,8 @@ function update() {
                 normalAttack(computerIndex);
                 randomWord = null;
                 normalAttackValue = false;
+                document.getElementById("healBtn").disabled = false;
+                document.getElementById("specialAttackBtn").disabled = false;
             }
             
             else if (specialAttackValue == true){
@@ -328,12 +320,16 @@ function update() {
                 specialAttackValue = false;
                 document.getElementById("specialAttackBtn").disabled = true;
                 setInterval(enableSpecialAttack,15000)
+                document.getElementById("normalAttackBtn").disabled = false;
+                document.getElementById("healBtn").disabled = false;
             }
             
             else if (healValue == true) {
                 heal(currentIndex);
                 randomWord = null;
                 healValue = false;
+                document.getElementById("normalAttackBtn").disabled = false;
+                document.getElementById("specialAttackBtn").disabled = false;
             }
         }
         else {
@@ -343,10 +339,48 @@ function update() {
             INCORRECT_DISPLAY.innerText = textBoxValue.replace(correctLetters, "");
         }
 
-        //if (textBoxValue.length == 0) {
-        //    CORRECT_DISPLAY.innerText = "";
-        //    INCORRECT_DISPLAY.innerText = "";
-        //}
+        if (normalAttackValue == true){
+            document.getElementById("specialAttackBtn").disabled = true;
+            document.getElementById("healBtn").disabled = true;
+        }
+        else if (specialAttackValue == true) {
+            document.getElementById("normalAttackBtn").disabled = true;
+            document.getElementById("healBtn").disabled = true;
+        }
+        else if (healValue == true){
+            document.getElementById("normalAttackBtn").disabled = true;
+            document.getElementById("specialAttackBtn").disabled = true;
+        }
+
+        if (INCORRECT_DISPLAY.innerText.length <= 0 && specialAttackValue == true){
+            if (textBoxValue == wordDisplayed){
+                CORRECT_DISPLAY.innerText = "";
+                INCORRECT_DISPLAY.innerText = "";
+                P_DISPLAYWORD.innerText = "";
+                I_INPUT_TEXT.value = "";
+
+                specialAttack(computerIndex);
+                randomWord = null;
+                specialAttackValue = false;
+
+                document.getElementById("specialAttackBtn").disabled = true;
+                document.getElementById("normalAttackBtn").disabled = false;
+                document.getElementById("healBtn").disabled = false;
+
+                setInterval(enableSpecialAttack,15000)
+
+            }
+        }
+        else if(specialAttackValue == true && INCORRECT_DISPLAY.innerText.length > 0){
+            specialAttackValue = false;
+            CORRECT_DISPLAY.innerText = "";
+            INCORRECT_DISPLAY.innerText = "";
+            P_DISPLAYWORD.innerText = "";
+            I_INPUT_TEXT.value = "";
+            document.getElementById("specialAttackBtn").disabled = true;
+            document.getElementById("normalAttackBtn").disabled = false;
+            document.getElementById("healBtn").disabled = false;
+        }
         gameOver();
     }
 }
