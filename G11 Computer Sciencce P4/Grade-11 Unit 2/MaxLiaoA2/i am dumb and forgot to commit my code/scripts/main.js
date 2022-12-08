@@ -1,32 +1,41 @@
 // Max Liao ORIGINAL
 
-// Constants for indexs and array lists 
+// constants for the human and computer 
 const HUMAN = 0;
 const COMPUTER = 1;
+
+// constant for number of characters
 const NUMBER_OF_CHARACTERS = 2;
 
-// Constant used to store html elements 
-
+// CONSTANTS FOR HTML ELEMENTS 
+// constants for the selection page 
 const P_CHARACTER_LIST = document.getElementById("characterList");
 const P_CHARACTER_STATS = document.getElementById("statsDisplay");
 const IMG_TAG = document.getElementById("characterImg");
+
+// constants for the in game page 
 const SELECTED_IMG_HUMAN = document.getElementById("selectedCharacterImageHuman");
 const SELECTED_IMG_COMPUTER = document.getElementById("selectedCharacterImageComputer");
 const SELECTED_CHARACTER_LIST = document.getElementById("selectedCharacterList");
 const COMPUTER_CHARACTER_LIST = document.getElementById("computerCharacterList");
+
+// constants for the type racer function 
 const I_INPUT_TEXT = document.getElementById("textbox");
 const P_NUMBER = document.getElementById("numberDisplay");
 const CORRECT_DISPLAY = document.getElementById("correct");
 const INCORRECT_DISPLAY = document.getElementById("wrong");
 
+// CONSTANTS FOR GAME 
+// constant for the word array list 
 const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boot","cower","tough","cheat","other","youth","ignore","breast","scrape","desire","polish","patient","equinox","confine","deliver","reactor","marriage","position","research","economist","wisecrack","modernize","psychology"]
 
+// constants for the actions the player can choose
 const ATTACK_NORMAL = 0;
 const ATTACK_SPEICAL = 1;
 const HEAL = 2;
 
-// Vaeriables used to store arrays for game
-
+// VARIABLES
+// variables used to store data for the characters in the game
 let characters = new Array(NUMBER_OF_CHARACTERS);
 let characterImgFileName = new Array(NUMBER_OF_CHARACTERS);
 let health = new Array(NUMBER_OF_CHARACTERS);
@@ -34,12 +43,11 @@ let normalAttackPower = new Array(NUMBER_OF_CHARACTERS);
 let specialAttackPower = new Array(NUMBER_OF_CHARACTERS);
 let healPower = new Array(NUMBER_OF_CHARACTERS);
 
+// variables used to store the users index and the computers index 
 let currentIndex = 0;
+let computerIndex = 1;
 
-let oppositeIndex = 1;
-
-let characterNumber = 1;
-
+// variable to store modified works and correct words
 let correctWord;
 let randomWord;
 
@@ -68,7 +76,7 @@ function start() {
     displayCharacters(currentIndex);
     showCurrentImage();
     selectedElementsHuman(currentIndex);
-    selectedElementsComputer(oppositeIndex);
+    selectedElementsComputer(computerIndex);
 }
 
 function createCharacters() {
@@ -135,7 +143,7 @@ function selectedElementsComputer(chosen) {
 }
 
 function displayCharacter(player) {
-    if (player == oppositeIndex) {
+    if (player == computerIndex) {
         COMPUTER_CHARACTER_LIST.innerText = "Health : " + health[player] + "\n\n" + "Normal Attack Power: " + normalAttackPower[player] + "\n\n" + "Special Attack Power: " + specialAttackPower[player] + "\n\n" + "Heal Power: " +  healPower[player];
     } 
     else {
@@ -154,21 +162,21 @@ function autoAttackSpecial() {
 }
  
 function autoHeal() {
-    heal(oppositeIndex);
-    displayCharacter(oppositeIndex);
+    heal(computerIndex);
+    displayCharacter(computerIndex);
 }
 
 function selectCharacter() {
     document.getElementById("Page1").hidden = true;
     document.getElementById("Page2").hidden = false;
     if (currentIndex == 0) {
-        oppositeIndex = 1
+        computerIndex = 1
     }
     else {
-        oppositeIndex = 0
+        computerIndex = 0
     }
     selectedElementsHuman(currentIndex);
-    selectedElementsComputer(oppositeIndex);
+    selectedElementsComputer(computerIndex);
     
     setInterval(autoAttackNormal, 5000);
 
@@ -179,7 +187,7 @@ function selectCharacter() {
 
 function normalAttack(playerIndex) {
     if (playerIndex == currentIndex) {
-        health[playerIndex] -= showRandom(normalAttackPower[oppositeIndex], normalAttackPower[oppositeIndex] * (showRandom(0, WORDLIST.length) + 2) / 2) * 2;
+        health[playerIndex] -= showRandom(normalAttackPower[computerIndex], normalAttackPower[computerIndex] * (showRandom(0, WORDLIST.length) + 2) / 2) * 2;
     }
     else {
         health[playerIndex] -= showRandom(normalAttackPower[currentIndex], normalAttackPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
@@ -189,7 +197,7 @@ function normalAttack(playerIndex) {
 
 function specialAttack(playerIndex) {
     if (playerIndex == currentIndex) {
-        health[playerIndex] -= showRandom(specialAttackPower[oppositeIndex], specialAttackPower[oppositeIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
+        health[playerIndex] -= showRandom(specialAttackPower[computerIndex], specialAttackPower[computerIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
     }
     else {
         health[playerIndex] -= showRandom(specialAttackPower[currentIndex], specialAttackPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
@@ -199,7 +207,7 @@ function specialAttack(playerIndex) {
 
 function heal(playerIndex) {
     if (playerIndex == currentIndex) {
-        health[playerIndex] -= showRandom(healPower[oppositeIndex], healPower[oppositeIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
+        health[playerIndex] -= showRandom(healPower[computerIndex], healPower[computerIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
     }
     else {
         health[playerIndex] -= showRandom(healPower[currentIndex], healPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
@@ -242,12 +250,12 @@ function update() {
         I_INPUT_TEXT.value = "";
         P_NUMBER.innerText = "";
         if (normalAttackValue == true) {
-            normalAttack(oppositeIndex);
+            normalAttack(computerIndex);
             randomWord = null;
             normalAttackValue = false;
         }
         else if (specialAttackValue == true){
-            specialAttack(oppositeIndex);
+            specialAttack(computerIndex);
             randomWord = null;
             specialAttackValue = false;
         }
@@ -306,7 +314,7 @@ function getLastCharacter(word) {
 }
 
 function gameOver() {
-    if (health[oppositeIndex] <= 0 || health[currentIndex] <= 0){
+    if (health[computerIndex] <= 0 || health[currentIndex] <= 0){
         //location.href = "gameOver.html"
     }
 }
