@@ -12,10 +12,6 @@
     
                 <div class="flexbox-item flexbox-item-3" >
                     <div class="flexbox-container">
-    
-                        
-    
-
                         <div class="flexbox-item flexbox-item-4">
                             <h4>Human</h4>
 
@@ -25,9 +21,9 @@
 
                             <div class="flexbox-item flexbox-item-6" id="bottombuttonsgame">
 
-                                <button type="button" onclick="normalAttack(opposite);">Normal Attack</button>
-                                <button type="button" onclick="specialAttack(opposite);">Special Attack</button>
-                                <button type="button" onclick="heal(selectedIndex);">Heal</button>
+                                <button type="button" id="normalAttackBtn" onclick="showWord(ATTACK_NORMAL);">Normal Attack</button>
+                                <button type="button" id="specialAttackBtn" onclick="showWord(ATTACK_SPEICAL);">Special Attack</button>
+                                <button type="button" id="healBtn" onclick="showWord(HEAL);">Heal</button>
                                 
                             </div>
 
@@ -35,7 +31,12 @@
 
                         
                         <div class="flexbox-item flexbox-item-7" id="typeracer">
-                            <input type="text"/>
+                            <center>
+                                <input type="text" id="textbox" />
+                                <p id="numberDisplay"></p>
+                                <p id="correct"></p>
+                                <p id="wrong"></p>
+                            </center>
                         </div>
                         
 

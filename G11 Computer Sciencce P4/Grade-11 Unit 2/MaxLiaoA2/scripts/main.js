@@ -1,24 +1,25 @@
 // Max Liao ORIGINAL
 
-// Constants for indexs and array lists 
 const HUMAN = 0;
 const COMPUTER = 1;
+
+// constant for number of characters
 const NUMBER_OF_CHARACTERS = 2;
 
-// Constant used to store html elements 
-
+// CONSTANTS FOR HTML ELEMENTS 
+// constants for the selection page 
 const P_CHARACTER_LIST = document.getElementById("characterList");
 const P_CHARACTER_STATS = document.getElementById("statsDisplay");
 const IMG_TAG = document.getElementById("characterImg");
+
+// constants to display stats and pictures in game 
 const SELECTED_IMG_HUMAN = document.getElementById("selectedCharacterImageHuman");
 const SELECTED_IMG_COMPUTER = document.getElementById("selectedCharacterImageComputer");
 const SELECTED_CHARACTER_LIST = document.getElementById("selectedCharacterList");
 const COMPUTER_CHARACTER_LIST = document.getElementById("computerCharacterList");
 
-const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boot","cower","tough","cheat","other","youth","ignore","breast","scrape","desire","polish","patient","equinox","confine","deliver","reactor","marriage","position","research","economist","wisecrack","modernize","psychology"]
-
-// Vaeriables used to store arrays for game
-
+// VARIABLES
+// variables used to store data for the characters in the game
 let characters = new Array(NUMBER_OF_CHARACTERS);
 let characterImgFileName = new Array(NUMBER_OF_CHARACTERS);
 let health = new Array(NUMBER_OF_CHARACTERS);
@@ -28,18 +29,17 @@ let healPower = new Array(NUMBER_OF_CHARACTERS);
 
 
 let currentIndex = 0;
-
-let oppositeIndex;
-
-let characterNumber = 1;
-
+let computerIndex;
+let gameStart = false;
 
 start();
 
 function start() {
-    createCharacters();
-    displayCharacter(currentIndex);
-    showCurrentImage();
+    if (window.location.href.split(/(\\|\/)/g).pop() == "index.html"){
+        createCharacters();
+        displayCharacter(currentIndex);
+        showCurrentImage();
+    }
 }
 
 function createCharacters() {
@@ -88,14 +88,14 @@ function previousCharacter() {
 }
 
 function selectCharacter() {
-    location.href="game.html";
     if (currentIndex == 0) {
-        oppositeIndex = 1
+        computerIndex = 1
     }
     else {
-        oppositeIndex = 0
+        computerIndex = 0
     }
-    window.localStorage.setItem('oppositeCharacter', oppositeIndex);
+    location.href="game.html";
+    window.localStorage.setItem('oppositeCharacter', computerIndex);
     window.localStorage.setItem('selectedCharacter', currentIndex);
 }
 
