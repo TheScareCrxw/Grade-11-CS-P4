@@ -13,11 +13,16 @@ const P_CHARACTER_LIST = document.getElementById("characterList");
 const P_CHARACTER_STATS = document.getElementById("statsDisplay");
 const IMG_TAG = document.getElementById("characterImg");
 
-// constants for the in game page 
+// constants to display stats and pictures in game 
 const SELECTED_IMG_HUMAN = document.getElementById("selectedCharacterImageHuman");
 const SELECTED_IMG_COMPUTER = document.getElementById("selectedCharacterImageComputer");
 const SELECTED_CHARACTER_LIST = document.getElementById("selectedCharacterList");
 const COMPUTER_CHARACTER_LIST = document.getElementById("computerCharacterList");
+
+// constants for button ids
+const NORMAL_ATTACK_BUTTON = document.getElementById("normalAttackBtn");
+const SPECIAL_ATTACK_BUTTON = document.getElementById("specialAttackBtn");
+const HEAL_BUTTON = document.getElementById("healBtn");
 
 // constants for the type racer function 
 const I_INPUT_TEXT = document.getElementById("textbox");
@@ -27,7 +32,7 @@ const INCORRECT_DISPLAY = document.getElementById("wrong");
 
 // CONSTANTS FOR GAME 
 // constant for the word array list 
-const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boot","cower","tough","cheat","other","youth","ignore","breast","scrape","desire","polish","patient","equinox","confine","deliver","reactor","marriage","position","research","economist","wisecrack","modernize","psychology"]
+const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boot","cower","tough","cheat","other","youth","ignore","breast","scrape","desire","polish","patient","equinox","confine","deliver","reactor","marriage","position","research","economist","wisecrack","moderni2qae","psychology"]
 
 // constants for the actions the player can choose
 const ATTACK_NORMAL = 0;
@@ -97,8 +102,9 @@ function start() {
 }
 
 // function to set the values for each characters health, normal attack, special attack, and heal power
-// Zer and Loz, only 2 characters, also sets image and character name
 function createCharacters() {
+
+    // stats and image for character: Zer 
     characters[HUMAN] = "Zer";
     characterImgFileName[HUMAN] = "Character2.gif";
     health[HUMAN] = 260 ;
@@ -106,6 +112,7 @@ function createCharacters() {
     specialAttackPower[HUMAN] = 63;
     healPower[HUMAN] = 34;
     
+    // stats and image for character: Loz 
     characters[COMPUTER] = "Loz";
     characterImgFileName[COMPUTER] = "Character1.gif";
     health[COMPUTER] = 235 ;
@@ -156,12 +163,14 @@ function selectedElementsHuman(chosen) {
 // if the player/human chooses one option the computer takes the other option
 function selectedElementsComputer(chosen) {
     if (currentIndex == 0) {
+        // if user chooses Zer, computer chooses Loz
         chosen = 1
         SELECTED_IMG_COMPUTER.src = characterImgFileName[chosen];
         COMPUTER_CHARACTER_LIST.innerText = "Health : " + health [chosen] + "\n\n" + "Normal Attack Power: " + normalAttackPower[chosen] + "\n\n" + "Special Attack Power: " + specialAttackPower[chosen] + "\n\n" + "Heal Power: " +  healPower[chosen];
         
     }
     else {
+        // if user chooses Loz, computer chooses Zer
         chosen = 0
         SELECTED_IMG_COMPUTER.src = characterImgFileName[chosen];
         COMPUTER_CHARACTER_LIST.innerText = "Health : " + health[chosen] + "\n\n" + "Normal Attack Power: " + normalAttackPower[chosen] + "\n\n" + "Special Attack Power: " + specialAttackPower[chosen] + "\n\n" + "Heal Power: " +  healPower[chosen];
@@ -223,46 +232,66 @@ function selectCharacter() {
     setInterval(autoHeal, 10000);
 }
 
-// function to normal attack 
+// function to normal attack a character 
 function normalAttack(playerIndex) {
     // if the parameter is equal to the current/human index it will do the computers damage 
     if (playerIndex == currentIndex) {
+
+        // the computer will deal damage which is a random number between the base normal attack computer and 
+        // the base normal attack computer * (random number between 0 and array length + 2) / 2 * 2 
+        // * 2 because the computer attacks twice every 5 seconds
         health[playerIndex] -= showRandom(normalAttackPower[computerIndex], normalAttackPower[computerIndex] * (showRandom(0, WORDLIST.length) + 2) / 2) * 2;
     }
 
     // if the parameters is equal to the computers index it will do the players damage 
     else {
+
+        // the human will deal damage which is a random number between the base normal attack selected and 
+        // the base normal attack selected * (the index of word + 2) / 2
         health[playerIndex] -= showRandom(normalAttackPower[currentIndex], normalAttackPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
     }
     // updates the players stats 
     displayCharacter(playerIndex);
 }
 
+// function to speicla attack a character 
 function specialAttack(playerIndex) {
     // if the parameter is equal to the current/human index it will do the computers damage 
     if (playerIndex == currentIndex) {
+
+        // the computer will deal damage which is a random number between the base speical attack computer and 
+        // the base special attack computer * (random number between 0 and word array length + 2) / 2 
         health[playerIndex] -= showRandom(specialAttackPower[computerIndex], specialAttackPower[computerIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
     }
 
     // if the parameters is equal to the computers index it will do the players damage 
     else {
+
+        // the human will deal special attack from the base special attack to 
+        // the special attack * the index of word + 2 / 2
         health[playerIndex] -= showRandom(specialAttackPower[currentIndex], specialAttackPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
-        document.getElementById("specialAttackBtn").disabled = true;
+        SPECIAL_ATTACK_BUTTON.disabled = true;
     }
     // updates the players stats 
     displayCharacter(playerIndex);
 }
 
+// function to heal a character 
 function heal(playerIndex) {
     // if the parameter is equal to the current/human index it will heal the humans heal power 
     if (playerIndex == currentIndex) {
+        // the human will gain health which is a random number from the base heal power selected to 
+        // the heal power * the index of word + 2 / 2
         health[playerIndex] += showRandom(healPower[currentIndex], healPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
     }
 
     // if the parameter is equal to the computer index it will heal the computers heal power 
     else {
+        // the computer will gain health based on a random number between the computers heal power 
+        // and the computers heal power * (random number from 0 and word array length + 2) / 2
         health[playerIndex] += showRandom(healPower[computerIndex], healPower[computerIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
     }
+    // updates the players stats
     displayCharacter(playerIndex);
 }
 
@@ -310,26 +339,26 @@ function update() {
                 normalAttack(computerIndex);
                 randomWord = null;
                 normalAttackValue = false;
-                document.getElementById("healBtn").disabled = false;
-                document.getElementById("specialAttackBtn").disabled = false;
+                HEAL_BUTTON.disabled = false;
+                SPECIAL_ATTACK_BUTTON.disabled = false;
             }
             
             else if (specialAttackValue == true){
                 specialAttack(computerIndex);
                 randomWord = null;
                 specialAttackValue = false;
-                document.getElementById("specialAttackBtn").disabled = true;
+                SPECIAL_ATTACK_BUTTON.disabled = true;
                 setInterval(enableSpecialAttack,15000)
-                document.getElementById("normalAttackBtn").disabled = false;
-                document.getElementById("healBtn").disabled = false;
+                NORMAL_ATTACK_BUTTON.disabled = false;
+                HEAL_BUTTON.disabled = false;
             }
             
             else if (healValue == true) {
                 heal(currentIndex);
                 randomWord = null;
                 healValue = false;
-                document.getElementById("normalAttackBtn").disabled = false;
-                document.getElementById("specialAttackBtn").disabled = false;
+                NORMAL_ATTACK_BUTTON.disabled = false;
+                SPECIAL_ATTACK_BUTTON.disabled = false;
             }
         }
         else {
@@ -340,16 +369,16 @@ function update() {
         }
 
         if (normalAttackValue == true){
-            document.getElementById("specialAttackBtn").disabled = true;
-            document.getElementById("healBtn").disabled = true;
+            SPECIAL_ATTACK_BUTTON.disabled = true;
+            HEAL_BUTTON.disabled = true;
         }
         else if (specialAttackValue == true) {
-            document.getElementById("normalAttackBtn").disabled = true;
-            document.getElementById("healBtn").disabled = true;
+            NORMAL_ATTACK_BUTTON.disabled = true;
+            HEAL_BUTTON.disabled = true;
         }
         else if (healValue == true){
-            document.getElementById("normalAttackBtn").disabled = true;
-            document.getElementById("specialAttackBtn").disabled = true;
+            NORMAL_ATTACK_BUTTON.disabled = true;
+            SPECIAL_ATTACK_BUTTON.disabled = true;
         }
 
         if (INCORRECT_DISPLAY.innerText.length <= 0 && specialAttackValue == true){
@@ -363,9 +392,9 @@ function update() {
                 randomWord = null;
                 specialAttackValue = false;
 
-                document.getElementById("specialAttackBtn").disabled = true;
-                document.getElementById("normalAttackBtn").disabled = false;
-                document.getElementById("healBtn").disabled = false;
+                SPECIAL_ATTACK_BUTTON.disabled = true;
+                NORMAL_ATTACK_BUTTON.disabled = false;
+                HEAL_BUTTON.disabled = false;
 
                 setInterval(enableSpecialAttack,15000)
 
@@ -377,26 +406,22 @@ function update() {
             INCORRECT_DISPLAY.innerText = "";
             P_DISPLAYWORD.innerText = "";
             I_INPUT_TEXT.value = "";
-            document.getElementById("specialAttackBtn").disabled = true;
-            document.getElementById("normalAttackBtn").disabled = false;
-            document.getElementById("healBtn").disabled = false;
+            SPECIAL_ATTACK_BUTTON.disabled = true;
+            NORMAL_ATTACK_BUTTON.disabled = false;
+            HEAL_BUTTON.disabled = false;
         }
         gameOver();
     }
 }
 
+// function to disable special attack button after 15 seconds 
 function enableSpecialAttack() {
-    document.getElementById("specialAttackBtn").disabled = false;
+    SPECIAL_ATTACK_BUTTON.disabled = false;
 }
 
+// shows the word that the user has to type 
 function showWord(action) {
-    randomWord = WORDLIST[showRandom(0, WORDLIST.length - 1)];
-    wordDisplayed = randomWord
-    P_DISPLAYWORD.innerText = wordDisplayed;
-    indexOfTextBox = 0;
-    INCORRECT_DISPLAY.innerText = "";
-    CORRECT_DISPLAY.innerText = "";
-    I_INPUT_TEXT.value = "";
+    // used to deterimine which action the user has pressed 
     if (action == ATTACK_NORMAL){
         normalAttackValue = true;
     }
@@ -406,6 +431,21 @@ function showWord(action) {
     else if (action == HEAL){
         healValue = true;
     }
+    // displays a random word in the array, will be modified 
+    randomWord = WORDLIST[showRandom(0, WORDLIST.length - 1)];
+
+    // the word that will be displayed 
+    wordDisplayed = randomWord
+    P_DISPLAYWORD.innerText = wordDisplayed;
+
+    // resets the index of the text box 
+    indexOfTextBox = 0;
+    
+    // resets the displays and z
+    INCORRECT_DISPLAY.innerText = "";
+    CORRECT_DISPLAY.innerText = "";
+    I_INPUT_TEXT.value = "";
+
 }
 
 // function that calculates and returns a random number within a certain range
