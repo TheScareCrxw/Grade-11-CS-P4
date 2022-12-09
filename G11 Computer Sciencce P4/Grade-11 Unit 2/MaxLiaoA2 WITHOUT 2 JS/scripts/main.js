@@ -188,23 +188,7 @@ function displayCharacter(player) {
     }
 }
 
-// function for the computer's normal attacks 
-function autoAttackNormal() {
-    normalAttack(currentIndex);
-    displayCharacter(currentIndex);
-}
 
-// function for the computer's special attacks 
-function autoAttackSpecial() {
-    specialAttack(currentIndex);
-    displayCharacter(currentIndex);
-}
- 
-// function for the computer's heal power 
-function autoHeal() {
-    heal(computerIndex);
-    displayCharacter(computerIndex);
-}
 
 // function for when the user selects a character to play
 
@@ -225,11 +209,14 @@ function selectCharacter() {
     selectedElementsComputer(computerIndex);
     
     // sets timer loops for the computers automated actions 
-    setInterval(autoAttackNormal, 5000);
+    // automatic normal attacks  
+    setInterval(normalAttack, 5000, currentIndex);
 
-    setInterval(autoAttackSpecial, 15000);
-
-    setInterval(autoHeal, 10000);
+    // automatic special attacks
+    setInterval(specialAttack, 15000, currentIndex);
+    
+    // automatic heals
+    setInterval(heal, 10000, computerIndex);
 }
 
 // function to normal attack a character 
@@ -250,8 +237,7 @@ function normalAttack(playerIndex) {
         // the base normal attack selected * (the index of word + 2) / 2
         health[playerIndex] -= showRandom(normalAttackPower[currentIndex], normalAttackPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
     }
-    // updates the players stats 
-    displayCharacter(playerIndex);
+
 }
 
 // function to speicla attack a character 
@@ -272,8 +258,7 @@ function specialAttack(playerIndex) {
         health[playerIndex] -= showRandom(specialAttackPower[currentIndex], specialAttackPower[currentIndex] * (WORDLIST.indexOf(wordDisplayed) + 2) / 2);
         SPECIAL_ATTACK_BUTTON.disabled = true;
     }
-    // updates the players stats 
-    displayCharacter(playerIndex);
+
 }
 
 // function to heal a character 
@@ -291,29 +276,32 @@ function heal(playerIndex) {
         // and the computers heal power * (random number from 0 and word array length + 2) / 2
         health[playerIndex] += showRandom(healPower[computerIndex], healPower[computerIndex] * (showRandom(0, WORDLIST.length) + 2) / 2);
     }
-    // updates the players stats
-    displayCharacter(playerIndex);
 }
 
 function update() {
+
+    // stores the users input into a variable which updates every 20ms
     textBoxValue = I_INPUT_TEXT.value;
+
+    // updates the displays for both characters every 20ms
+    displayCharacter(currentIndex);
+    displayCharacter(computerIndex);
 
     if (textBoxValueLength >= 0 && (normalAttackValue == true || specialAttackValue == true || healValue == true)) {
         textBoxValueLength = textBoxValue.length;
+        CORRECT_DISPLAY.style.color = "green";
 
         if (textBoxValue[indexOfTextBox] == getStringFront(randomWord)) {
             savedCorrectLetters = textBoxValue.length;
             lastCharacter = getLastCharacter(textBoxValue);
             randomWord = getStringBack(randomWord); 
             correctWord = randomWord;
-            CORRECT_DISPLAY.style.color = "green";
             CORRECT_DISPLAY.innerText = correctWord;
             indexOfTextBox ++;
         }
         else if (savedCorrectLetters - 1 == textBoxValueLength){
             correctWord = lastCharacter + correctWord
             lastCharacter = getLastCharacter(textBoxValue)
-            CORRECT_DISPLAY.style.color = "green";
             CORRECT_DISPLAY.innerText = correctWord;
             INCORRECT_DISPLAY.innerText = "";
             savedCorrectLetters = textBoxValue.length;
@@ -322,7 +310,6 @@ function update() {
             randomWord = wordDisplayed.replace(randomWord,"")
             indexOfTextBox -- 
         }
-
         else if (textBoxValueLength == 0){
             randomWord = wordDisplayed
             savedCorrectLetters = 0
@@ -330,36 +317,22 @@ function update() {
             CORRECT_DISPLAY.innerText = "";
             INCORRECT_DISPLAY.innerText = "";
         }
-
-        
         else if (textBoxValue == wordDisplayed) {
-            I_INPUT_TEXT.value = "";
-            P_DISPLAYWORD.innerText = "";
             if (normalAttackValue == true) {
                 normalAttack(computerIndex);
-                randomWord = null;
                 normalAttackValue = false;
                 HEAL_BUTTON.disabled = false;
                 SPECIAL_ATTACK_BUTTON.disabled = false;
             }
-            
-            else if (specialAttackValue == true){
-                specialAttack(computerIndex);
-                randomWord = null;
-                specialAttackValue = false;
-                SPECIAL_ATTACK_BUTTON.disabled = true;
-                setInterval(enableSpecialAttack,15000)
-                NORMAL_ATTACK_BUTTON.disabled = false;
-                HEAL_BUTTON.disabled = false;
-            }
-            
             else if (healValue == true) {
                 heal(currentIndex);
-                randomWord = null;
                 healValue = false;
                 NORMAL_ATTACK_BUTTON.disabled = false;
                 SPECIAL_ATTACK_BUTTON.disabled = false;
             }
+            randomWord = null;
+            I_INPUT_TEXT.value = "";
+            P_DISPLAYWORD.innerText = "";
         }
         else {
             lastOccurance = wordDisplayed.lastIndexOf(correctWord)
@@ -367,6 +340,8 @@ function update() {
             INCORRECT_DISPLAY.style.color = "red";
             INCORRECT_DISPLAY.innerText = textBoxValue.replace(correctLetters, "");
         }
+
+
 
         if (normalAttackValue == true){
             SPECIAL_ATTACK_BUTTON.disabled = true;
@@ -381,6 +356,8 @@ function update() {
             SPECIAL_ATTACK_BUTTON.disabled = true;
         }
 
+
+        
         if (INCORRECT_DISPLAY.innerText.length <= 0 && specialAttackValue == true){
             if (textBoxValue == wordDisplayed){
                 CORRECT_DISPLAY.innerText = "";
@@ -397,7 +374,6 @@ function update() {
                 HEAL_BUTTON.disabled = false;
 
                 setInterval(enableSpecialAttack,15000)
-
             }
         }
         else if(specialAttackValue == true && INCORRECT_DISPLAY.innerText.length > 0){
