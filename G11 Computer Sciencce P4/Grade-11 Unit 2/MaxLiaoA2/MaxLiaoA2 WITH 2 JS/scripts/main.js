@@ -27,14 +27,20 @@ let normalAttackPower = new Array(NUMBER_OF_CHARACTERS);
 let specialAttackPower = new Array(NUMBER_OF_CHARACTERS);
 let healPower = new Array(NUMBER_OF_CHARACTERS);
 
-
+// variable for the human index and the computer index 
 let currentIndex = 0;
 let computerIndex;
+
+// variable used to run automatic actions computer does, chances when select character is called
 let gameStart = false;
 
+// start function to display everything 
 start();
 
 function start() {
+
+    // gets the file name and compares it with index.html, if it is equal, run this start function 
+    // window.location grabs the file name. This prevents it from running in game.html
     if (window.location.href.split(/(\\|\/)/g).pop() == "index.html"){
         createCharacters();
         displayCharacter(currentIndex);
@@ -42,6 +48,7 @@ function start() {
     }
 }
 
+// creates the characters the user can choose as well as setting the name and stats
 function createCharacters() {
     characters[HUMAN] = "Zer";
     characterImgFileName[HUMAN] = "Character2.gif";
@@ -59,18 +66,21 @@ function createCharacters() {
 
 }
 
+// shows the current image in the traversal
 function showCurrentImage() {
     IMG_TAG.src = characterImgFileName[currentIndex];
     IMG_TAG.width = 350;
     IMG_TAG.height = 350;
 }
 
+// displays the stats for the character 
 function displayCharacter(index) {
     P_CHARACTER_LIST.innerText = characters[index];
     showCurrentImage();
     P_CHARACTER_STATS.innerText = "Health: " + health[index] + "\n\n" + "Normal Attack Power: " + normalAttackPower[index] + "\n\n" + "Special Attack Power: " + specialAttackPower[index] + "\n\n" + "Heal Power: " +  healPower[index];
 }
 
+// function allows the user to travel to the next character in the traversal 
 function nextCharacter() {
     currentIndex += 1;
     if (currentIndex == characters.length) {
@@ -79,6 +89,7 @@ function nextCharacter() {
     displayCharacter(currentIndex);
 }
 
+// function allows the user to travel to the previous character in the traversal 
 function previousCharacter() {
     currentIndex -= 1;
     if (currentIndex < 0) {
@@ -87,6 +98,7 @@ function previousCharacter() {
     displayCharacter(currentIndex);
 }
 
+// selects the character the user wants to play as well as setting the computer character
 function selectCharacter() {
     if (currentIndex == 0) {
         computerIndex = 1
@@ -94,7 +106,11 @@ function selectCharacter() {
     else {
         computerIndex = 0
     }
+
+    // links them to game.html 
     location.href="game.html";
+
+    // stores variables in local storage so that other files may access the variables
     window.localStorage.setItem('oppositeCharacter', computerIndex);
     window.localStorage.setItem('selectedCharacter', currentIndex);
 }

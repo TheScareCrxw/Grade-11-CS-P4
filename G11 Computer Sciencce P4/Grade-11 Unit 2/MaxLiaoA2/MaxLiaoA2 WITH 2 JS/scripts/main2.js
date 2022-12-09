@@ -67,6 +67,8 @@ start();
 // function to display everything that is needed when user runs the code
 // displaying characters, creating characters, showing characters ect. 
 function start() {
+    
+    // grabs variables in local storage and stores them into variable
     currentIndex = window.localStorage.getItem("selectedCharacter");
     computerIndex = window.localStorage.getItem("oppositeCharacter");    
     createCharacters();
@@ -304,16 +306,27 @@ function update() {
                 setInterval(enableSpecialAttack,15000)
             }
         }
+
+        // checks if the special attack is active and if there are any incorrect letters
+        // if both of them are true execute code 
         else if(specialAttackValue == true && INCORRECT_DISPLAY.innerText.length > 0){
+
+            // deactivates special attack
             specialAttackValue = false;
+
+            // clears all type racer text elements
             CORRECT_DISPLAY.innerText = "";
             INCORRECT_DISPLAY.innerText = "";
             P_DISPLAYWORD.innerText = "";
             I_INPUT_TEXT.value = "";
+
+            // disables the special attack button and enables the normal and heal button
             SPECIAL_ATTACK_BUTTON.disabled = true;
             NORMAL_ATTACK_BUTTON.disabled = false;
             HEAL_BUTTON.disabled = false;
         }
+
+        // checks if either the player or computer is dead
         gameOver();
     }
 }
@@ -345,7 +358,7 @@ function showWord(action) {
     // resets the index of the text box 
     indexOfTextBox = 0;
     
-    // resets the displays and z
+    // resets the displays and textbox value
     INCORRECT_DISPLAY.innerText = "";
     CORRECT_DISPLAY.innerText = "";
     I_INPUT_TEXT.value = "";
@@ -380,8 +393,4 @@ function gameOver() {
     }
 }
 
-// this function lets the user restart the game and redirects the user to the index.html 
-// when redirected, the html page will load up everything again and the game will run
-function restart(){
-    //location.href = "index.html"
-}
+

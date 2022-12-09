@@ -21,10 +21,10 @@ body {
 #typeracer{
     display: flex;
     position: absolute;
-    margin-top: 400px;
+    margin-top: 250px;
     margin-left: 400px;
     justify-content:center;
-    height: 50px;
+    height: 200px;
     width: 300px;
 }
 
