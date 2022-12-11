@@ -15,7 +15,7 @@ const INCORRECT_DISPLAY = document.getElementById("wrong");
 
 // CONSTANTS FOR GAME 
 // constant for the word array list 
-const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boot","cower","tough","cheat","other","youth","ignore","breast","scrape","desire","polish","patient","equinox","confine","deliver","reactor","marriage","position","research","economist","wisecrack","moderni2qae","psychology"]
+const WORDLIST = ["he", "she","dog","toy","rob","hall","snub","wave","roof","boot","cower","tough","cheat","other","youth","ignore","breast","scrape","desire","polish","patient","equinox","confine","deliver","reactor","marriage","position","research","economist","wisecrack","modernize","psychology"]
 
 // constants for the actions the player can choose
 const ATTACK_NORMAL = 0;
@@ -56,6 +56,11 @@ let correctLetters = 0;
 // stores the users input value 
 let textBoxValue = I_INPUT_TEXT.value; 
 
+// used to store timer loop to clear interval
+let specialBtn;
+
+let timer_Started = false;
+
 // timer loop for my update function which updates every 20ms
 setInterval(update, 20);
 
@@ -84,6 +89,12 @@ function start() {
 
     // automatic heals
     setInterval(heal, 10000, computerIndex);
+
+    SPECIAL_ATTACK_BUTTON.disabled = true;
+
+    timer_Started = true;
+
+    specialBtn = setInterval(enableSpecialAttack,15000)
 }
 
 // function to set the values for each characters health, normal attack, special attack, and heal power
@@ -252,13 +263,23 @@ function update() {
                 normalAttack(computerIndex);
                 normalAttackValue = false;
                 HEAL_BUTTON.disabled = false;
-                SPECIAL_ATTACK_BUTTON.disabled = false;
+                if (timer_Started == true) {
+                    SPECIAL_ATTACK_BUTTON.disabled = true;
+                }
+                else {
+                    SPECIAL_ATTACK_BUTTON.disabled = false;
+                }
             }
             else if (healValue == true) {
                 heal(currentIndex);
                 healValue = false;
                 NORMAL_ATTACK_BUTTON.disabled = false;
-                SPECIAL_ATTACK_BUTTON.disabled = false;
+                if (timer_Started == true) {
+                    SPECIAL_ATTACK_BUTTON.disabled = true;
+                }
+                else {
+                    SPECIAL_ATTACK_BUTTON.disabled = false;
+                }
             }
             randomWord = null;
             I_INPUT_TEXT.value = "";
@@ -303,7 +324,8 @@ function update() {
                 NORMAL_ATTACK_BUTTON.disabled = false;
                 HEAL_BUTTON.disabled = false;
 
-                setInterval(enableSpecialAttack,15000)
+                specialBtn = setInterval(enableSpecialAttack,15000)
+                timer_Started = true;
             }
         }
 
@@ -324,6 +346,9 @@ function update() {
             SPECIAL_ATTACK_BUTTON.disabled = true;
             NORMAL_ATTACK_BUTTON.disabled = false;
             HEAL_BUTTON.disabled = false;
+
+            specialBtn = setInterval(enableSpecialAttack,15000);
+            timer_Started = true;
         }
 
         // checks if either the player or computer is dead
@@ -334,6 +359,8 @@ function update() {
 // function to disable special attack button after 15 seconds 
 function enableSpecialAttack() {
     SPECIAL_ATTACK_BUTTON.disabled = false;
+    timer_Started = false;
+    clearInterval(specialBtn)
 }
 
 // shows the word that the user has to type 
