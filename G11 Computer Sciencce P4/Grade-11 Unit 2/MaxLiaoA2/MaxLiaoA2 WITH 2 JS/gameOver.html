@@ -9,6 +9,7 @@
     <body style="background-color: #101820FF;">
 
         <center>
+            <h3 style="color:white" id="gameOver"></h3>
             <button type="button" style="margin-top: 25%" onclick="restart();">Restart</button>
         </center>
 
@@ -16,10 +17,32 @@
 
 
         <script>
+
+            // gets the game over element from html
+            const GAME_OVER_DISPLAY = document.getElementById("gameOver");
+            // stores the win and lose variables 
+            let winText = window.localStorage.getItem("win");
+            let loseText = window.localStorage.getItem("lose");
+            let loseOrWinValue = window.localStorage.getItem("loseOrWin")
+
+
+            displayGameOver();
+
             // this function lets the user restart the game and redirects the user to the index.html 
             // when redirected, the html page will load up everything again and the game will run
             function restart(){
-                location.href = "index.html"
+                location.href = "index.html";
+            }
+
+            // function to deterimine who one and who lost 
+            // displays who won and who lost 
+            function displayGameOver(){
+                if (loseOrWinValue == "true"){
+                    GAME_OVER_DISPLAY.innerText = winText;
+                }
+                else {
+                    GAME_OVER_DISPLAY.innerText = loseText;
+                }
             }
         </script>
     </body>

@@ -59,7 +59,11 @@ let textBoxValue = I_INPUT_TEXT.value;
 // used to store timer loop to clear interval
 let specialBtn;
 
+// used to check if the special attack timer is on
 let timer_Started = false;
+
+// used to check if user won or lost at end of game
+let win; 
 
 // timer loop for my update function which updates every 20ms
 setInterval(update, 20);
@@ -227,42 +231,101 @@ function update() {
     displayCharacter(currentIndex);
     displayCharacter(computerIndex);
 
+    // checks if either the player or computer is dead
+    gameOver();
 
+    // checks if the textbox is empty and if there is a user action active 
     if (textBoxValueLength >= 0 && (normalAttackValue == true || specialAttackValue == true || healValue == true)) {
+        
+        // stores the textbox length into a variable 
         textBoxValueLength = textBoxValue.length;
+
+        // changes correct letters display to green 
         CORRECT_DISPLAY.style.color = "green";
 
+        // checks if a letter in the text box is equal to the letter in the random word
+        // uses index of the text box to check each letter in the textbox
         if (textBoxValue[indexOfTextBox] == getStringFront(randomWord)) {
+            
+            // saves the amount of correct letters into a variable, used to check when  user backspaces
             savedCorrectLetters = textBoxValue.length;
+
+            // gets the last character of the textbox and stores it 
             lastCharacter = getLastCharacter(textBoxValue);
+            
+            // changes the random word into the random word with the front letter removed 
             randomWord = getStringBack(randomWord); 
+            
+            // the correct word is equal to the random word
             correctWord = randomWord;
+
+            // displays the correct word in green to the user 
             CORRECT_DISPLAY.innerText = correctWord;
+
+            // add one to the index of the textbox to check the next letter of the text box
             indexOfTextBox ++;
         }
+
+        // checks if the user has backspaced using the saved correct letters 
+        // if the saved correct letters - 1 = textbox length, it indicates that the user has 
+        // backspaced one of the correct letters 
         else if (savedCorrectLetters - 1 == textBoxValueLength){
-            correctWord = lastCharacter + correctWord
-            lastCharacter = getLastCharacter(textBoxValue)
+            
+            // adds the letter the user has deleted to the correct word
+            correctWord = lastCharacter + correctWord;
+
+            // the last character is updated 
+            lastCharacter = getLastCharacter(textBoxValue);
+
+            // the correct display is updated (with the letter deleted now)
             CORRECT_DISPLAY.innerText = correctWord;
+            
+            // the incorrect display is cleared 
             INCORRECT_DISPLAY.innerText = "";
+
+            // saved correct letters is updated 
             savedCorrectLetters = textBoxValue.length;
-            getStringFront(correctWord)
-            randomWord = wordDisplayed.replace(correctWord, "")
-            randomWord = wordDisplayed.replace(randomWord,"")
-            indexOfTextBox -- 
+
+            // updates the random word 
+            randomWord = wordDisplayed.replace(wordDisplayed.replace(correctWord, ""),"");
+
+            // removes one from the textbox index 
+            indexOfTextBox --;
         }
+
+        // if the textbox length is equal to 0 resets everything 
         else if (textBoxValueLength == 0){
+
+            // the random word is reset to the word selected/displayed
             randomWord = wordDisplayed
+
+            // saved letters is reset
             savedCorrectLetters = 0
+            
+            // index of textbox is reset
             indexOfTextBox = 0
+
+            // the incorrect and correct displays are reset
             CORRECT_DISPLAY.innerText = "";
             INCORRECT_DISPLAY.innerText = "";
         }
+
+        // if the user types the correct word 
         else if (textBoxValue == wordDisplayed) {
+            
+            // when the user uses  a normal attack 
             if (normalAttackValue == true) {
+
+                // does a normal attack to the computer
                 normalAttack(computerIndex);
+
+                // resets the normal attack value
                 normalAttackValue = false;
+
+                // enables the heal button
                 HEAL_BUTTON.disabled = false;
+
+                // enables the special attack button if the user has not used it in 15 seconds
                 if (timer_Started == true) {
                     SPECIAL_ATTACK_BUTTON.disabled = true;
                 }
@@ -270,10 +333,20 @@ function update() {
                     SPECIAL_ATTACK_BUTTON.disabled = false;
                 }
             }
+
+            // when the user uses heal 
             else if (healValue == true) {
+
+                // casts a heal to the user
                 heal(currentIndex);
+
+                // resets the heal value
                 healValue = false;
+
+                // enables the normal attack button
                 NORMAL_ATTACK_BUTTON.disabled = false;
+
+                // enables the special attack button if the user has not used it in 15 seconds
                 if (timer_Started == true) {
                     SPECIAL_ATTACK_BUTTON.disabled = true;
                 }
@@ -281,50 +354,74 @@ function update() {
                     SPECIAL_ATTACK_BUTTON.disabled = false;
                 }
             }
+            
+            // resets the random word 
             randomWord = null;
+
+            // clears the textbox and word displayed
             I_INPUT_TEXT.value = "";
             P_DISPLAYWORD.innerText = "";
         }
+
+        // displays the incorrect word 
         else {
+
+            // find the last occurance if the correct word
             lastOccurance = wordDisplayed.lastIndexOf(correctWord)
+
+            // changes the correct letter display and replaces it with the last occurance 
             correctLetters = wordDisplayed.substring(0, lastOccurance);
+
+            // displays the incorrect letters typed 
             INCORRECT_DISPLAY.style.color = "red";
             INCORRECT_DISPLAY.innerText = textBoxValue.replace(correctLetters, "");
         }
 
-
-
+        // disables the buttons depending on what action is done 
+        // disables all buttons other than normal attack
         if (normalAttackValue == true){
             SPECIAL_ATTACK_BUTTON.disabled = true;
             HEAL_BUTTON.disabled = true;
         }
+        // disables all buttons other than special attack 
         else if (specialAttackValue == true) {
             NORMAL_ATTACK_BUTTON.disabled = true;
             HEAL_BUTTON.disabled = true;
         }
+        // disables all buttons other than heal 
         else if (healValue == true){
             NORMAL_ATTACK_BUTTON.disabled = true;
             SPECIAL_ATTACK_BUTTON.disabled = true;
         }
 
-
-        
+        // checks if the user types an incorrect letter and if special attack is active
         if (INCORRECT_DISPLAY.innerText.length <= 0 && specialAttackValue == true){
+
+            // if the user types the word reqiured to perform speical attack
             if (textBoxValue == wordDisplayed){
+
+                // resets all of the displays 
                 CORRECT_DISPLAY.innerText = "";
                 INCORRECT_DISPLAY.innerText = "";
                 P_DISPLAYWORD.innerText = "";
                 I_INPUT_TEXT.value = "";
-
+                
+                // does a special attack 
                 specialAttack(computerIndex);
+
+                // resets the random word and the special attack value
                 randomWord = null;
                 specialAttackValue = false;
 
+                // enables all buttons but speical attack
                 SPECIAL_ATTACK_BUTTON.disabled = true;
                 NORMAL_ATTACK_BUTTON.disabled = false;
                 HEAL_BUTTON.disabled = false;
 
+                // sets a timer for 15 seconds to enable the special attack again
                 specialBtn = setInterval(enableSpecialAttack,15000)
+
+                // variable that tells if the timer has started 
                 timer_Started = true;
             }
         }
@@ -347,12 +444,12 @@ function update() {
             NORMAL_ATTACK_BUTTON.disabled = false;
             HEAL_BUTTON.disabled = false;
 
+            // sets a timer for 15 seconds to enable the special attack again
             specialBtn = setInterval(enableSpecialAttack,15000);
+            
+            // variable that tells if the timer has started 
             timer_Started = true;
         }
-
-        // checks if either the player or computer is dead
-        gameOver();
     }
 }
 
@@ -389,7 +486,6 @@ function showWord(action) {
     INCORRECT_DISPLAY.innerText = "";
     CORRECT_DISPLAY.innerText = "";
     I_INPUT_TEXT.value = "";
-
 }
 
 // function that calculates and returns a random number within a certain range
@@ -415,9 +511,16 @@ function getLastCharacter(word) {
 // function that checks if either the computer or player has less than 0 health
 // if it is, the game is over and it will open gameOver page
 function gameOver() {
-    if (health[computerIndex] <= 0 || health[currentIndex] <= 0){
-        //location.href = "gameOver.html"
+    if (health[computerIndex] <= 0) {
+        location.href = "gameOver.html"
+        window.localStorage.setItem("win","You win!")
+        win = true;
+        
     }
+    else if (health[currentIndex] <= 0){
+        location.href = "gameOver.html"
+        window.localStorage.setItem("lose","You lose!")
+        win = false;
+    }
+    window.localStorage.setItem("loseOrWin", win);
 }
-
-
