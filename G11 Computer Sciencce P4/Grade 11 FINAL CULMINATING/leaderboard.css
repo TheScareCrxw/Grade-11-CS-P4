@@ -1,0 +1,104 @@
+body {
+    background: gray;
+    text-align: center;
+    justify-content: center;
+    display: flex;  
+    align-items: center;
+}
+
+
+#userInput {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#userScore {
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Courier New', Courier, monospace;
+    margin-bottom: 1em;
+}
+
+#initials {
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-right: 20px;
+}
+
+#initialsBtn {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+
+}
+
+#initialsBtn:hover {
+    cursor: pointer;
+    background-color: #3e8e41;
+    transform: scale(1.1);
+}
+
+
+#leaderboardInfo {
+    background-color: #e6e6e6;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 #ccc;
+}
+
+#leaderboardInfo h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #333;
+}
+
+#leaderboard {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#resetGame, #resetLeaderboard {
+    background-color: #ff0000;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    margin-right: 7.5%;
+    position: relative;
+    float: right;
+    position: absolute;
+    margin-top: 10%;
+}
+
+#resetGame, #resetLeaderboard:hover {
+    cursor: pointer;
+    background-color: #cc0000;
+}
+
+#partialSearch {
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-right: 20px;
+}
+
+#partialSearchBtn {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+}
+
+#partialSearchBtn:hover {
+    cursor: pointer;
+    background-color: #3e8e41;
+}

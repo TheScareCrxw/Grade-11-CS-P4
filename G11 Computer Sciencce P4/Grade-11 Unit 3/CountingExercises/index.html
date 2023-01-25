@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Counting Thing </title>
+    </head>
+    <body>
+
+        <label for="startNumber">Start Num</label>
+        <input type="text" id="startNumber">
+
+        <label for="endingNumber">Number of Numbers/Ending Number</label>
+        <input type="text" id="endingNumber">
+
+        <label for="numberDifference">Num Diff</label>
+        <input type="text" id="numberDifference">
+
+        <button type="button" onclick="firstButton();">Exercise 1</button>
+        <button type="button" onclick="secondButton();">Exercise 2</button>
+
+        <p id="display"></p>
+
+
+        <script>
+            let startNum;
+            let endNum;
+            let numDiff;
+            let numberOfNums;
+            let finalNumber;
+
+            function firstButton(){
+                startNum = document.getElementById("startNumber").value;
+                endNum = document.getElementById("endingNumber").value;
+
+                if (startNum < endNum){
+                    for (let count = startNum; count <= endNum; count++ ){
+                        document.getElementById("display").innerText += count + '\n';
+                    }
+                }
+                else {
+                    for (let count = startNum; endNum <= count; count-- ){
+                        document.getElementById("display").innerText += count + '\n';
+                    }
+                }
+            }   
+
+            function secondButton(){
+                count = 1;
+                startNum = Number(document.getElementById("startNumber").value);
+                endNum = Number(document.getElementById("endingNumber").value);
+                numDiff = Number(document.getElementById("numberDifference").value);
+
+                if (count < endNum){
+                    finalNumber = startNum
+                    for (let count = 1; count <= endNum; count ++){
+                        document.getElementById("display").innerText += finalNumber + '\n';
+                        finalNumber += numDiff;
+                    }
+                }
+            }
+
+
+
+        </script>
+    </body>
+</html>

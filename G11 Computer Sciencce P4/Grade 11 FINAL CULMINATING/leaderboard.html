@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="leaderboard.css"></link>
+        <title>Leaderboard</title>
+    </head>
+    <body>
+        <div id="leaderboardInfo">
+            <h1>Leaderboard</h1>
+            <p id="leaderboard"></p>
+            
+            <button id="resetGame">Reset Game</button>
+            <button style="margin-left: 200px;" id="resetLeaderboard">Reset Leaderboard</button>
+            <label for="partialSearch">Enter Initial: </label>
+            <input type="text" id="partialSearch">
+            <button type="button" id="partialSearchBtn">Search</button>
+            
+        </div>
+
+        <div id="userInput" >
+            <h1 id="userScore"></h1>
+            <label for="initials">Enter your initials:</label>
+            <input type="text" id="initials" maxlength="3">
+            <button type="button" id="initialsBtn">Submit</button>
+
+            <p id="wrongText"></p>
+            
+        </div>
+        
+
+    </body>
+    <script src="scripts/leaderboard.js"></script>
+</html>

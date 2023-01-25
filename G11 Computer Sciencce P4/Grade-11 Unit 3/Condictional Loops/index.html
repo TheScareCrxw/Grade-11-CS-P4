@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+
+        <p id="numbers"></p> 
+
+        
+
+
+        <button type="button" onclick="createNumbers();">Create Numbers</button>
+        <br />
+        <button type="button" onclick="createWords();">Create Words</button>
+
+        
+        <script>
+
+
+            function RNG(){
+                return Math.floor(Math.random() * 5 + 1);
+            }
+
+            function RNG2(){
+                return Math.floor(Math.random() * 10);
+            }
+
+            function createNumbers(){
+                let z = RNG();
+                let x = RNG();
+                let y = RNG();
+                let doubleNum = true;
+
+                while (doubleNum == true){
+                    if (z == x || z == y){
+                        doubleNum = true;
+                        z = RNG();
+                        console.log(z)
+                    }
+                    else if (x == y){
+                        doubleNum = true;
+                        x = RNG();
+                    }
+                    else {
+                        document.getElementById("numbers").innerText = z +'\n' + y +'\n' + x;
+                        doubleNum = false;
+                    }
+                }
+            }
+
+            function createWords(){
+
+                let words = ["Hello","Noob","Katherine","Andy","Big Boi","Carson","Max","Joey","Shannie","Sooyee", ]
+
+                let x = RNG2();
+                let y = RNG2();
+                let z = RNG2();
+                let doubleNum = true;
+
+                while (doubleNum == true){
+                    if (z == x || z == y){
+                        doubleNum = true;
+                        z = RNG2();
+                    }
+                    else if (x == y){
+                        doubleNum = true;
+                        x = RNG2();
+                    }
+                    else {
+                        document.getElementById("numbers").innerText = words[z] +'\n' + words[y] +'\n' + words[x];
+                        doubleNum = false;
+                    }
+                }
+            }
+
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+body {
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+}
+
+canvas {
+    border: 5px solid white;
+    margin-top: 10%;
+}
+
+#scoreCounter, #highscore {
+    position: absolute;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    margin-top: 5%;
+    margin-left: -20%;
+}
+
+#startText {
+    position: absolute;
+    text-align: center;
+    color: aliceblue;
+    font-size: 100px;
+    margin-top: 50%;
+    font-family: 'Courier New', Courier, monospace;
+}

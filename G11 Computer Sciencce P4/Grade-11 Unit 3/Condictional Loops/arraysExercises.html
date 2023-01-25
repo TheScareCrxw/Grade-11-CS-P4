@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+
+        <p id="display"></p>
+        <button type="button" onclick="showAll();">Show All Movies</button>
+        <br />
+        <button type="button" onclick="showWatched();">Show Watched</button>
+        <br />
+        <button type="button" onclick="showUnwatched();">Show Watched</button>
+
+
+        <script>
+            let movies = ["Rush Hour 1", "Rush Hour 2", "Rush Hour 3", "Karate Kid", "The Foreigner"];
+            let watchedMovies = [false,true,true,false,true];
+            const HTML_DISPLAY = document.getElementById("display");
+
+            function showAll() {
+                HTML_DISPLAY.innerText = "";
+                for (let count = 0; count < movies.length; count ++){
+                    HTML_DISPLAY.innerText += movies[count] + "\n"
+                }
+            }
+            function showWatched() {
+                HTML_DISPLAY.innerText = "";
+                for (let i = 0; i < watchedMovies.length; i ++) {
+                    if (watchedMovies[i] == true){
+                        HTML_DISPLAY.innerText += movies[i] + "\n";
+                    }
+                }
+            }
+            function showUnwatched() {
+                HTML_DISPLAY.innerText = "";
+                for (let i = 0; i < watchedMovies.length; i ++) {
+                    if (watchedMovies[i] == false){
+                        HTML_DISPLAY.innerText += movies[i] + "\n";
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
